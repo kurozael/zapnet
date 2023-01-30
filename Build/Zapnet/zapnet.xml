@@ -1,0 +1,3499 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>zapnet</name>
+    </assembly>
+    <members>
+        <member name="T:zapnet.RemoteCallAttribute">
+            <summary>
+            Indicates that a method can be called remotely.
+            </summary>
+        </member>
+        <member name="P:zapnet.RemoteCallAttribute.InvokeOnSelf">
+            <summary>
+            Whether or not to invoke the method locally before calling remotely.
+            </summary>
+        </member>
+        <member name="T:zapnet.BaseControllable`1">
+            <summary>
+            An entity that can be controlled by a player and automatically sends and receives
+            input event data of the provided type.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:zapnet.BaseControllable`1.Controller">
+            <summary>
+            The player currently controlling this entity.
+            </summary>
+        </member>
+        <member name="F:zapnet.BaseControllable`1.reconcileLerpSpeed">
+            <summary>
+            The speed at which the transform is reconciled with the server.
+            </summary>
+        </member>
+        <member name="F:zapnet.BaseControllable`1._lastReconcileTime">
+            <summary>
+            The last time the transform was reconciled.
+            </summary>
+        </member>
+        <member name="F:zapnet.BaseControllable`1._pendingInputs">
+            <summary>
+            A list of input data yet to be processed.
+            </summary>
+        </member>
+        <member name="F:zapnet.BaseControllable`1._sequenceNumber">
+            <summary>
+            The last processed sequence number.
+            </summary>
+        </member>
+        <member name="M:zapnet.BaseControllable`1.AssignControl(zapnet.Player)">
+            <summary>
+            Assign control of this entity to the provided player.
+            </summary>
+            <param name="player"></param>
+        </member>
+        <member name="M:zapnet.BaseControllable`1.ReleaseControl">
+            <summary>
+            Release control of this entity from whomever currently controls it.
+            </summary>
+        </member>
+        <member name="M:zapnet.BaseControllable`1.HasController">
+            <summary>
+            Get whether this entity has a controller.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.BaseControllable`1.HasControl(zapnet.Player)">
+            <summary>
+            Get whether the provided player has control of this entity.
+            </summary>
+            <param name="player"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.BaseControllable`1.HasControl">
+            <summary>
+            Get whether any player has control of this entity.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.BaseControllable`1.OnCreated">
+            <summary>
+            Invoked when this entity is created.
+            </summary>
+        </member>
+        <member name="M:zapnet.BaseControllable`1.OnRemoved">
+            <summary>
+            Invoked when this entity is removed.
+            </summary>
+        </member>
+        <member name="M:zapnet.BaseControllable`1.WriteSpawn(zapnet.Player,Lidgren.Network.NetOutgoingMessage)">
+            <summary>
+            Write all spawn data to the outgoing message.
+            </summary>
+            <param name="player"></param>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:zapnet.BaseControllable`1.ReadSpawn(Lidgren.Network.NetIncomingMessage)">
+            <summary>
+            Read all spawn data from the outgoing message.
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:zapnet.BaseControllable`1.Tick">
+            <summary>
+            Invoked when the network ticks.
+            </summary>
+        </member>
+        <member name="M:zapnet.BaseControllable`1.ReadState(System.Boolean)">
+            <summary>
+            Process all state information here after it has been received.
+            </summary>
+            <param name="isSpawning"></param>
+        </member>
+        <member name="M:zapnet.BaseControllable`1.OnInputEvent(`0)">
+            <summary>
+            Invoked when an input event is received.
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:zapnet.BaseControllable`1.ResetController">
+            <summary>
+            Invoked when the controller is reset, this happens on the controlling client before reconciling inputs
+            every time a new state update is received.
+            </summary>
+        </member>
+        <member name="M:zapnet.BaseControllable`1.OnControllerChanged">
+            <summary>
+            Invoked when the controller has changed.
+            </summary>
+        </member>
+        <member name="M:zapnet.BaseControllable`1.OnInputSent(`0)">
+            <summary>
+            Invoked when input data has been sent to the server.
+            </summary>
+            <param name="input"></param>
+        </member>
+        <member name="M:zapnet.BaseControllable`1.SendInput(`0)">
+            <summary>
+            Invoked when the input data object should be modified to include all
+            input data ready to be sent to the server.
+            </summary>
+            <param name="input"></param>
+        </member>
+        <member name="M:zapnet.BaseControllable`1.ApplyInput(`0,System.Boolean)">
+            <summary>
+            Invoked when input data should be applied. Use this to update your character controller
+            or anything else that needs to react to inputs. This is called on both the controlling client
+            and the server.
+            </summary>
+            <param name="input"></param>
+            <param name="isFirstTime"></param>
+        </member>
+        <member name="M:zapnet.BaseControllable`1.OnPlayerControlLost(zapnet.Player)">
+            <summary>
+            Invoked when a player has lost control of the entity.
+            </summary>
+            <param name="player"></param>
+        </member>
+        <member name="M:zapnet.BaseControllable`1.OnPlayerControlGained(zapnet.Player)">
+            <summary>
+            Invoked when a player has gained control of the entity.
+            </summary>
+            <param name="player"></param>
+        </member>
+        <member name="M:zapnet.BaseControllable`1.SendSynchronizeEvent">
+            <summary>
+            Invoked when the synchronize event should be sent.
+            </summary>
+        </member>
+        <member name="M:zapnet.BaseControllable`1.InterpolateTransform">
+            <summary>
+            Invoked when the position and rotation should be interpolated to the values
+            in the latest state update.
+            </summary>
+        </member>
+        <member name="T:zapnet.BaseEntity">
+            <summary>
+            A base entity behaviour that all entities must inherit.
+            </summary>
+        </member>
+        <member name="P:zapnet.BaseEntity.NetworkPrefab">
+            <summary>
+            Get the network prefab that this entity was created from.
+            </summary>
+        </member>
+        <member name="P:zapnet.BaseEntity.PrefabName">
+            <summary>
+            Get the unique prefab name of this entity.
+            </summary>
+        </member>
+        <member name="P:zapnet.BaseEntity.PrefabId">
+            <summary>
+            Get the unique prefab identifier of this entity.
+            </summary>
+        </member>
+        <member name="P:zapnet.BaseEntity.SpawnTick">
+            <summary>
+            Get the server tick this entity was spawned on.
+            </summary>
+        </member>
+        <member name="P:zapnet.BaseEntity.IsStatic">
+            <summary>
+            Whether or not this entity is static (does not move.)
+            </summary>
+        </member>
+        <member name="P:zapnet.BaseEntity.IsFrozen">
+            <summary>
+            Whether or not this entity is frozen. Frozen entities do not have state updates
+            sent to clients.
+            </summary>
+        </member>
+        <member name="P:zapnet.BaseEntity.EntityId">
+            <summary>
+            Get the entity's unique identifier.
+            </summary>
+        </member>
+        <member name="F:zapnet.BaseEntity.interestRadius">
+            <summary>
+            While unused by default internally, this can be used by your game to automatically scope entities
+            that are within range from players.
+            </summary>
+        </member>
+        <member name="F:zapnet.BaseEntity.alwaysInScope">
+            <summary>
+            Whether or not the entity is always in scope. Entities that are not always in scope must be scoped
+            manually for each player.
+            </summary>
+        </member>
+        <member name="F:zapnet.BaseEntity.enableInterpolation">
+            <summary>
+            Whether or not automatic interpolation for this entity should be enabled. Disable this if you
+            want to use your own method of interpolation.
+            </summary>
+        </member>
+        <member name="F:zapnet.BaseEntity.interpolationTicks">
+            <summary>
+            How many ticks it takes to fully interpolate the position and rotation of this entity
+            to the ones provided by the most recent state update.
+            </summary>
+        </member>
+        <member name="F:zapnet.BaseEntity.minimumScopesForTick">
+            <summary>
+            The minimum amount of scopes needed for this entity to tick.
+            </summary>
+        </member>
+        <member name="F:zapnet.BaseEntity.minimumScopesForVisible">
+            <summary>
+            The minimum amount of scopes needed for this entity to be visible.
+            </summary>
+        </member>
+        <member name="P:zapnet.BaseEntity.ScopePlayers">
+            <summary>
+            Get a hashed set of players that this entity is scoped to.
+            </summary>
+        </member>
+        <member name="M:zapnet.BaseEntity.GetSubsystem``1(System.UInt16)">
+            <summary>
+            Get a subsystem by its unique identifier.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="subsystemId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.BaseEntity.GetSubsystem``1">
+            <summary>
+            Get a subystem with the provided type.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.BaseEntity.Teleport(UnityEngine.Vector3,UnityEngine.Quaternion)">
+            <summary>
+            Set the position of this entity without interpolation.
+            </summary>
+            <param name="position"></param>
+            <param name="rotation"></param>
+        </member>
+        <member name="M:zapnet.BaseEntity.SetScopeAll(System.Boolean)">
+            <summary>
+            Set the scope of this entity for all currently connected players.
+            </summary>
+            <param name="inScope"></param>
+        </member>
+        <member name="M:zapnet.BaseEntity.SetScope(zapnet.Player,System.Boolean)">
+            <summary>
+            Set the scope of this entity for the provided player.
+            </summary>
+            <param name="player"></param>
+            <param name="inScope"></param>
+        </member>
+        <member name="M:zapnet.BaseEntity.DistanceTo(zapnet.BaseEntity)">
+            <summary>
+            Get the distance between this entity and another.
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.BaseEntity.DistanceTo(UnityEngine.Vector3)">
+            <summary>
+            Get the distance between this entit and the provided position.
+            </summary>
+            <param name="position"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.BaseEntity.GetEntitiesInRange``1(System.Single)">
+            <summary>
+            Get all entities of the specific type within a range of this one.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="range"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.BaseEntity.GetClosestEntity``1(System.Single,zapnet.BaseEntity.ClosestEntityFilter{``0})">
+            <summary>
+            Get the closest entity of the provided type within range of this entity. Optionally a filter
+            callback can be supplied to determine which entities get selected as candiates.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="range"></param>
+            <param name="filter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.BaseEntity.IsInView(zapnet.BaseEntity,System.Single)">
+            <summary>
+            Get whether another entity is in view of this one within a tolerance range between 0 and 1.
+            </summary>
+            <param name="other"></param>
+            <param name="tolerance"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.BaseEntity.OnScopeCountChanged(System.Int32)">
+            <summary>
+            Invoked when this entity's scope count has changed.
+            </summary>
+            <param name="count"></param>
+        </member>
+        <member name="M:zapnet.BaseEntity.ShouldTick">
+            <summary>
+            Get whether or not this entity should tick.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.BaseEntity.IsScoped(zapnet.Player)">
+            <summary>
+            Get whether this entity is scoped for the provided player.
+            </summary>
+            <param name="player"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.BaseEntity.OnRemoteCallEvent(zapnet.RemoteCallEvent)">
+            <summary>
+            Invoked when a remote call event is received.
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:zapnet.BaseEntity.OnPlayerScoped(zapnet.Player)">
+            <summary>
+            Invoked when the entity enters a player's scope.
+            </summary>
+            <param name="player">The player.</param>
+        </member>
+        <member name="M:zapnet.BaseEntity.OnPlayerDescoped(zapnet.Player)">
+            <summary>
+            Invoked when the entity leaves a player's scope.
+            </summary>
+            <param name="player">The player.</param>
+        </member>
+        <member name="M:zapnet.BaseEntity.Call(System.Byte,zapnet.INetworkPacket)">
+            <summary>
+            Fire an event for the provided unique packet identifier and data and
+            events for all subsystems.
+            </summary>
+            <param name="packetId"></param>
+            <param name="data"></param>
+        </member>
+        <member name="M:zapnet.BaseEntity.WriteSpawn(zapnet.Player,Lidgren.Network.NetOutgoingMessage)">
+            <summary>
+            Write all spawn data to the outgoing message.
+            </summary>
+            <param name="player"></param>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:zapnet.BaseEntity.ReadSpawn(Lidgren.Network.NetIncomingMessage)">
+            <summary>
+            Read all spawn data from the outgoing message.
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:zapnet.BaseEntity.ProcessStateUpdate(Lidgren.Network.NetIncomingMessage,System.UInt32)">
+            <summary>
+            Process a state update for this entity from the server.
+            </summary>
+            <param name="buffer"></param>
+            <param name="serverTick"></param>
+        </member>
+        <member name="M:zapnet.BaseEntity.AddStateUpdate(Lidgren.Network.NetOutgoingMessage,System.UInt32)">
+            <summary>
+            Add everything required for a state update for this entity.
+            </summary>
+            <param name="buffer"></param>
+            <param name="tick"></param>
+        </member>
+        <member name="M:zapnet.BaseEntity.WriteState(System.Boolean)">
+            <summary>
+            Write all state information here before its sent.
+            </summary>
+            <param name="isSpawning"></param>
+        </member>
+        <member name="M:zapnet.BaseEntity.ReadState(System.Boolean)">
+            <summary>
+            Process all state information here after it has been received.
+            </summary>
+            <param name="isSpawning"></param>
+        </member>
+        <member name="M:zapnet.BaseEntity.Tick">
+            <summary>
+            Invoked when the network ticks.
+            </summary>
+        </member>
+        <member name="M:zapnet.BaseEntity.OnCreated">
+            <summary>
+            Invoked when this entity is created.
+            </summary>
+        </member>
+        <member name="M:zapnet.BaseEntity.OnRemoved">
+            <summary>
+            Invoked when this entity is removed.
+            </summary>
+        </member>
+        <member name="M:zapnet.BaseEntity.OnSpawned">
+            <summary>
+            Invoked when this entity has spawned.
+            </summary>
+        </member>
+        <member name="M:zapnet.BaseEntity.OnDespawned">
+            <summary>
+            Invoked when this entity has despawned.
+            </summary>
+        </member>
+        <member name="M:zapnet.BaseEntity.WriteDirtySyncVars(Lidgren.Network.NetOutgoingMessage,zapnet.SyncTarget)">
+            <summary>
+            Write all dirty synchronized variables to an outgoing message and all
+            synchronized variables for subsystems.
+            </summary>
+            <param name="buffer"></param>
+            <param name="target"></param>
+        </member>
+        <member name="M:zapnet.BaseEntity.WriteSyncVars(Lidgren.Network.NetOutgoingMessage,zapnet.SyncTarget)">
+            <summary>
+            Write all synchronized variables to an outgoing message and all
+            synchronized variables for subsystems.
+            </summary>
+            <param name="buffer"></param>
+            <param name="target"></param>
+        </member>
+        <member name="M:zapnet.BaseEntity.ReadSyncVars(Lidgren.Network.NetIncomingMessage,zapnet.SyncTarget,System.Boolean)">
+            <summary>
+            Read and process all synchronized variables from an incoming message and all
+            synchronized variables for subsystems.
+            </summary>
+            <param name="buffer"></param>
+            <param name="target"></param>
+            <param name="changeSilently"></param>
+        </member>
+        <member name="M:zapnet.BaseEntity.GetTotalDirtySyncVarCount(zapnet.SyncTarget)">
+            <summary>
+            Get the total dirty synchronized variables count for the provided target
+            including the count from all subsystems.
+            </summary>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.BaseEntity.OnTeleported">
+            <summary>
+            Invoked when the entity is teleported.
+            </summary>
+        </member>
+        <member name="M:zapnet.BaseEntity.SendSynchronizeEvent">
+            <summary>
+            Invoked when the synchronize event should be sent.
+            </summary>
+        </member>
+        <member name="M:zapnet.BaseEntity.GetTeleportDistance">
+            <summary>
+            Get the distance required for this entity to teleport to its new position
+            instead of interpolating.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.BaseEntity.InterpolateTransform">
+            <summary>
+            Invoked when the position and rotation should be interpolated to the values
+            in the latest state update.
+            </summary>
+        </member>
+        <member name="T:zapnet.EntitySubsystem">
+            <summary>
+            The base behaviour class for entity subsystems. Entity subsystems are separate
+            components that can exist alongside an entity, they can contain synchronized
+            variables and remote calls.
+            </summary>
+        </member>
+        <member name="P:zapnet.EntitySubsystem.Entity">
+            <summary>
+            Get the entity that this subsystem belongs to.
+            </summary>
+        </member>
+        <member name="P:zapnet.EntitySubsystem.SubsystemId">
+            <summary>
+            Get this subsystem's unique identifier.
+            </summary>
+        </member>
+        <member name="P:zapnet.EntitySubsystem.DirtySyncVars">
+            <summary>
+            Get a dictionary of the total count of dirty synchronized variables where
+            the key is the synchronize target.
+            </summary>
+        </member>
+        <member name="P:zapnet.EntitySubsystem.State">
+            <summary>
+            Get the subsystem's state object.
+            </summary>
+        </member>
+        <member name="M:zapnet.EntitySubsystem.GetState``1">
+            <summary>
+            Get the entity state cast as the provided type.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.EntitySubsystem.RemoteClientCall(zapnet.EntitySubsystem.RemoteCallClientMethod,zapnet.Player)">
+            <summary>
+            Get a remote client call object for the provided method and the recipient to call it on.
+            </summary>
+            <param name="method"></param>
+            <param name="recipient"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.EntitySubsystem.RemoteClientCall(zapnet.EntitySubsystem.RemoteCallClientMethod,System.Collections.Generic.List{zapnet.Player})">
+            <summary>
+            Get a remote client call object for the provided method and the recipients to call it on.
+            </summary>
+            <param name="method"></param>
+            <param name="recipients"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.EntitySubsystem.RemoteClientCall(zapnet.EntitySubsystem.RemoteCallClientMethod)">
+            <summary>
+            Get a remote client call object for the provided method.
+            </summary>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.EntitySubsystem.RemoteServerCall(zapnet.EntitySubsystem.RemoteCallServerMethod)">
+            <summary>
+            Get a remote server call object for the provided method.
+            </summary>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.EntitySubsystem.CreateEvent``1(``0)">
+            <summary>
+            Create a new event (fetched from a pool) for this entity with the provided event data type. Optionally pass
+            in existing data to use.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.EntitySubsystem.Subscribe``1(zapnet.OnProcessEvent{``0})">
+            <summary>
+            Subscribe to the provided event data type.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="callback"></param>
+        </member>
+        <member name="M:zapnet.EntitySubsystem.Unsubscribe``1(zapnet.OnProcessEvent{``0})">
+            <summary>
+            Unsubscribe from the provided event data type.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="callback"></param>
+        </member>
+        <member name="M:zapnet.EntitySubsystem.Tick">
+            <summary>
+            Invoked when the network ticks.
+            </summary>
+        </member>
+        <member name="M:zapnet.EntitySubsystem.ProcessStateUpdate(Lidgren.Network.NetIncomingMessage,System.UInt32)">
+            <summary>
+            Process a state update for this subsystem from the server.
+            </summary>
+            <param name="buffer"></param>
+            <param name="serverTick"></param>
+        </member>
+        <member name="M:zapnet.EntitySubsystem.AddStateUpdate(Lidgren.Network.NetOutgoingMessage,System.UInt32)">
+            <summary>
+            Add everything required for a state update for this subsystem.
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:zapnet.EntitySubsystem.WriteDirtySyncVars(Lidgren.Network.NetOutgoingMessage,zapnet.SyncTarget)">
+            <summary>
+            Write all dirty synchronized variables to an outgoing message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="target"></param>
+        </member>
+        <member name="M:zapnet.EntitySubsystem.WriteSyncVars(Lidgren.Network.NetOutgoingMessage,zapnet.SyncTarget)">
+            <summary>
+            Write all synchronized variables to an outgoing message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="target"></param>
+        </member>
+        <member name="M:zapnet.EntitySubsystem.ReadSyncVars(Lidgren.Network.NetIncomingMessage,zapnet.SyncTarget,System.Boolean)">
+            <summary>
+            Read and process all synchronized variables from an incoming message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="target"></param>
+            <param name="changeSilently"></param>
+        </member>
+        <member name="M:zapnet.EntitySubsystem.Call(System.Byte,zapnet.INetworkPacket)">
+            <summary>
+            Fire an event for the provided unique packet identifier and data.
+            </summary>
+            <param name="packetId"></param>
+            <param name="data"></param>
+        </member>
+        <member name="M:zapnet.EntitySubsystem.Initialize(zapnet.BaseEntity,System.UInt16)">
+            <summary>
+            Initialize this subsystem with the provided entity.
+            </summary>
+            <param name="entity"></param>
+            <param name="subsystemId"></param>
+        </member>
+        <member name="M:zapnet.EntitySubsystem.WriteSpawn(zapnet.Player,Lidgren.Network.NetOutgoingMessage)">
+            <summary>
+            Write all spawn data to the outgoing message.
+            </summary>
+            <param name="player"></param>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:zapnet.EntitySubsystem.ReadSpawn(Lidgren.Network.NetIncomingMessage)">
+            <summary>
+            Read all spawn data from the outgoing message.
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:zapnet.EntitySubsystem.WriteState(System.Boolean)">
+            <summary>
+            Write all state information here before its sent.
+            </summary>
+            <param name="isSpawning"></param>
+        </member>
+        <member name="M:zapnet.EntitySubsystem.ReadState(System.Boolean)">
+            <summary>
+            Process all state information here after it has been received.
+            </summary>
+            <param name="isSpawning"></param>
+        </member>
+        <member name="M:zapnet.EntitySubsystem.OnCreated">
+            <summary>
+            Invoked when the entity is created.
+            </summary>
+        </member>
+        <member name="M:zapnet.EntitySubsystem.OnRemoved">
+            <summary>
+            Invoked when the entity is removed.
+            </summary>
+        </member>
+        <member name="M:zapnet.EntitySubsystem.OnSpawned">
+            <summary>
+            Invoked when the entity has spawned.
+            </summary>
+        </member>
+        <member name="M:zapnet.EntitySubsystem.OnDespawned">
+            <summary>
+            Invoked when the entity has despawned.
+            </summary>
+        </member>
+        <member name="M:zapnet.EntitySubsystem.OnPlayerScoped(zapnet.Player)">
+            <summary>
+            Invoked when the entity enters a player's scope.
+            </summary>
+            <param name="player">The player.</param>
+        </member>
+        <member name="M:zapnet.EntitySubsystem.OnPlayerDescoped(zapnet.Player)">
+            <summary>
+            Invoked when the entity leaves a player's scope.
+            </summary>
+            <param name="player">The player.</param>
+        </member>
+        <member name="M:zapnet.EntitySubsystem.OnTeleported(UnityEngine.Vector3,UnityEngine.Quaternion)">
+            <summary>
+            Invoked when the entity is teleported.
+            </summary>
+        </member>
+        <member name="T:zapnet.BaseInputEvent">
+            <summary>
+            A base event input data class that should be inherited to send input data to the server.
+            </summary>
+        </member>
+        <member name="P:zapnet.BaseInputEvent.SequenceNumber">
+            <summary>
+            The unique sequence number for this input event.
+            </summary>
+        </member>
+        <member name="T:zapnet.ControlGainedEvent">
+            <summary>
+            An event fired when a player gains control of an entity.
+            </summary>
+        </member>
+        <member name="P:zapnet.ControlGainedEvent.Controllable">
+            <summary>
+            The controllable entity.
+            </summary>
+        </member>
+        <member name="P:zapnet.ControlGainedEvent.Controller">
+            <summary>
+            The controlling player.
+            </summary>
+        </member>
+        <member name="T:zapnet.ControlLostEvent">
+            <summary>
+            An event fired when a player loses control of an entity.
+            </summary>
+        </member>
+        <member name="P:zapnet.ControlLostEvent.Controllable">
+            <summary>
+            The controllable entity.
+            </summary>
+        </member>
+        <member name="P:zapnet.ControlLostEvent.Controller">
+            <summary>
+            The controlling player.
+            </summary>
+        </member>
+        <member name="T:zapnet.RemoteCallEvent">
+            <summary>
+            An event fired when a remote call is made.
+            </summary>
+        </member>
+        <member name="P:zapnet.RemoteCallEvent.SubsystemId">
+            <summary>
+            The unique subsystem identifier for the remote call method.
+            </summary>
+        </member>
+        <member name="P:zapnet.RemoteCallEvent.MethodId">
+            <summary>
+            The unique network identifier for the remote call method.
+            </summary>
+        </member>
+        <member name="P:zapnet.RemoteCallEvent.Params">
+            <summary>
+            Contains params as a net buffer to be read or write from.
+            </summary>
+        </member>
+        <member name="T:zapnet.SynchronizeEvent">
+            <summary>
+            An event fired when synchronized variables are changed.
+            </summary>
+        </member>
+        <member name="P:zapnet.SynchronizeEvent.Target">
+            <summary>
+            The target type of players to synchronize with.
+            </summary>
+        </member>
+        <member name="T:zapnet.NetworkHitbox">
+            <summary>
+            A behaviour for a hitbox that should be rewound automatically when a raycast is made. This is useful
+            to predict exactly where a player was actually shooting by the time the server receives the event.
+            </summary>
+        </member>
+        <member name="F:zapnet.NetworkHitbox._hitboxCenter">
+            <summary>
+            The center of the hitbox in local space.
+            </summary>
+        </member>
+        <member name="F:zapnet.NetworkHitbox._hitboxSize">
+            <summary>
+            The size of the hitbox in local space.
+            </summary>
+        </member>
+        <member name="M:zapnet.NetworkHitbox.Backup">
+            <summary>
+            Backup the position and rotation of this network hitbox.
+            </summary>
+        </member>
+        <member name="M:zapnet.NetworkHitbox.Restore">
+            <summary>
+            Restore the position and rotation of this network hitbox from the last backup.
+            </summary>
+        </member>
+        <member name="M:zapnet.NetworkHitbox.Rewind(System.UInt32)">
+            <summary>
+            Rewind this hitbox to the provided server tick.
+            </summary>
+            <param name="tick"></param>
+        </member>
+        <member name="T:zapnet.SubsystemState">
+            <summary>
+            A base subsystem state class that all subsystem states must inherit. States are automatically
+            sent to each client periodically.
+            </summary>
+        </member>
+        <member name="F:zapnet.SubsystemState._sendPriority">
+            <summary>
+            The rate at which this state will be sent to clients. A value of 1 means this state will be included in every update, a value of 2 means
+            this state will be included in every 2nd update, and so on.
+            </summary>
+        </member>
+        <member name="P:zapnet.SubsystemState.SendPriority">
+            <summary>
+            The rate at which this state will be sent to clients. A value of 1 means this state will be included in every update, a value of 2 means
+            this state will be included in every 2nd update, and so on.
+            </summary>
+        </member>
+        <member name="M:zapnet.SubsystemState.Write(zapnet.BaseEntity,Lidgren.Network.NetOutgoingMessage,System.Boolean)">
+            <summary>
+            Write the subsystem state to the outgoing message.
+            </summary>
+            <param name="entity"></param>
+            <param name="buffer"></param>
+            <param name="isSpawning"></param>
+        </member>
+        <member name="M:zapnet.SubsystemState.Read(zapnet.BaseEntity,Lidgren.Network.NetIncomingMessage,System.Boolean)">
+            <summary>
+            Read and process the subsystem state from the incoming message.
+            </summary>
+            <param name="entity"></param>
+            <param name="buffer"></param>
+            <param name="isSpawning"></param>
+        </member>
+        <member name="T:zapnet.ControllableState">
+            <summary>
+            Contains state data for controllable entities.
+            </summary>
+        </member>
+        <member name="F:zapnet.ControllableState.lastSequenceNumber">
+            <summary>
+            The last input sequence number processed by the server.
+            </summary>
+        </member>
+        <member name="T:zapnet.EntityState">
+            <summary>
+            A state for all entities that will automatically synchronize the
+            its position and rotation.
+            </summary>
+        </member>
+        <member name="F:zapnet.EntityState.synchronizedTransform">
+            <summary>
+            Contains the configuration for transform synchronization.
+            </summary>
+        </member>
+        <member name="F:zapnet.EntityState.rotation">
+            <summary>
+            The current rotation of the entity.
+            </summary>
+        </member>
+        <member name="F:zapnet.EntityState.position">
+            <summary>
+            The current position of the entity.
+            </summary>
+        </member>
+        <member name="M:zapnet.EntityState.Write(zapnet.BaseEntity,Lidgren.Network.NetOutgoingMessage,System.Boolean)">
+            <summary>
+            Write the entity state to the outgoing message.
+            </summary>
+            <param name="entity"></param>
+            <param name="buffer"></param>
+            <param name="isSpawning"></param>
+        </member>
+        <member name="M:zapnet.EntityState.Read(zapnet.BaseEntity,Lidgren.Network.NetIncomingMessage,System.Boolean)">
+            <summary>
+            Read and process the entity state from the incoming message.
+            </summary>
+            <param name="entity"></param>
+            <param name="buffer"></param>
+            <param name="isSpawning"></param>
+        </member>
+        <member name="T:zapnet.LidgrenExtensions">
+            <summary>
+            A static class containing extensions for Lidgren.
+            </summary>
+        </member>
+        <member name="M:zapnet.LidgrenExtensions.ResetHead(Lidgren.Network.NetBuffer)">
+            <summary>
+            Reset the head of the buffer.
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:zapnet.LidgrenExtensions.Clear(Lidgren.Network.NetBuffer)">
+            <summary>
+            Clear the buffer.
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:zapnet.LidgrenExtensions.Write(Lidgren.Network.NetOutgoingMessage,UnityEngine.Vector3,zapnet.VectorAxes)">
+            <summary>
+            Write a Vector3 to the message with only the supplied axes.
+            </summary>
+            <param name="buffer"></param>
+            <param name="vector"></param>
+            <param name="axes"></param>
+        </member>
+        <member name="M:zapnet.LidgrenExtensions.WriteCompressedVector3(Lidgren.Network.NetOutgoingMessage,UnityEngine.Vector3,System.Single,System.Single,System.Int32,zapnet.VectorAxes)">
+            <summary>
+            Write a compressed Vector3 to the message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="vector"></param>
+            <param name="minimum"></param>
+            <param name="maximum"></param>
+            <param name="numberOfBits"></param>
+            <param name="axes"></param>
+        </member>
+        <member name="M:zapnet.LidgrenExtensions.WriteCompressedQuaternion(Lidgren.Network.NetOutgoingMessage,UnityEngine.Quaternion)">
+            <summary>
+            Write a compressed Quaternion to the message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="rotation"></param>
+        </member>
+        <member name="M:zapnet.LidgrenExtensions.ReadCompressedVector3(Lidgren.Network.NetIncomingMessage,System.Single,System.Single,System.Int32,zapnet.VectorAxes)">
+            <summary>
+            Read a compressed Vector3 from the message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="min"></param>
+            <param name="max"></param>
+            <param name="numberOfBits"></param>
+            <param name="axes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.LidgrenExtensions.ReadVector3(Lidgren.Network.NetIncomingMessage,UnityEngine.Vector3@,zapnet.VectorAxes)">
+            <summary>
+            Read a Vector3 from the message into the referenced vector.
+            </summary>
+            <param name="buffer"></param>
+            <param name="vector"></param>
+            <param name="axes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.LidgrenExtensions.ReadCompressedVector3(Lidgren.Network.NetIncomingMessage,UnityEngine.Vector3@,System.Single,System.Single,System.Int32,zapnet.VectorAxes)">
+            <summary>
+            Read a compressed Vector3 from the message into the referenced vector.
+            </summary>
+            <param name="buffer"></param>
+            <param name="vector"></param>
+            <param name="min"></param>
+            <param name="max"></param>
+            <param name="numberOfBits"></param>
+            <param name="axes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.LidgrenExtensions.ReadCompressedQuaternion(Lidgren.Network.NetIncomingMessage)">
+            <summary>
+            Read a compressed Quaternion from the message.
+            </summary>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
+        <member name="T:zapnet.EntityManager">
+            <summary>
+            A behaviour to manage all network entities.
+            </summary>
+        </member>
+        <member name="E:zapnet.EntityManager.onEntityCreated">
+            <summary>
+            Invoked when an entity has been created.
+            </summary>
+        </member>
+        <member name="E:zapnet.EntityManager.onEntityRemoved">
+            <summary>
+            Invoked when an entity has been removed.
+            </summary>
+        </member>
+        <member name="P:zapnet.EntityManager.Entities">
+            <summary>
+            Get a table list of all entities that exist.
+            </summary>
+        </member>
+        <member name="P:zapnet.EntityManager.PreventSpawning">
+            <summary>
+            [Client] Whether or not the spawning of entities should be prevented. This should
+            only be set on the client and can be used to temporarily hold off spawning
+            of entities until the client is ready.
+            </summary>
+        </member>
+        <member name="M:zapnet.EntityManager.AddHitbox(zapnet.NetworkHitbox)">
+            <summary>
+            [Shared] Add a network hitbox to be rewound when performing raycasts.
+            </summary>
+            <param name="hitbox"></param>
+        </member>
+        <member name="M:zapnet.EntityManager.RemoveHitbox(zapnet.NetworkHitbox)">
+            <summary>
+            [Shared] Remove a network hitbox from the managed list.
+            </summary>
+            <param name="hitbox"></param>
+        </member>
+        <member name="M:zapnet.EntityManager.FindPrefab(System.String)">
+            <summary>
+            [Shared] Find an entity prefab with the provided unique name.
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.EntityManager.FindPrefab``1(System.String)">
+            <summary>
+            [Shared] Find an entity prefab with the provided unique name.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.EntityManager.GetFreeId">
+            <summary>
+            [Server] Get the next free unique entity identifier.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.EntityManager.Remove(System.UInt32)">
+            <summary>
+            [Shared] Remove the provided entity and despawn it on all clients.
+            </summary>
+            <param name="entityId"></param>
+        </member>
+        <member name="M:zapnet.EntityManager.Remove(zapnet.BaseEntity)">
+            <summary>
+            [Shared] Remove the provided entity and despawn it on all clients.
+            </summary>
+            <param name="entity"></param>
+        </member>
+        <member name="M:zapnet.EntityManager.RemoveAll">
+            <summary>
+            [Shared] Removes all entities from the scene. Calling this client-side will only
+            remove the entities for the local player.
+            </summary>
+        </member>
+        <member name="M:zapnet.EntityManager.Send(zapnet.Player,zapnet.BaseEntity)">
+            <summary>
+            Manually send an entity spawn message to the specified player.
+            </summary>
+            <param name="player">The player.</param>
+            <param name="entity">The entity.</param>
+        </member>
+        <member name="M:zapnet.EntityManager.SpherecastAll(UnityEngine.Ray,System.UInt32,System.Single,System.Single,System.Int32)">
+            <summary>
+            [Shared] Perform a spherecast against all objects and rewind all network hitboxes to the provided server tick.
+            </summary>
+            <param name="ray"></param>
+            <param name="tick"></param>
+            <param name="radius"></param>
+            <param name="distance"></param>
+            <param name="layerMask"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.EntityManager.RaycastAll(UnityEngine.Ray,System.UInt32,System.Single,System.Int32)">
+            <summary>
+            [Shared] Perform a raycast against all objects and rewind all network hitboxes to the provided server tick.
+            </summary>
+            <param name="ray"></param>
+            <param name="tick"></param>
+            <param name="distance"></param>
+            <param name="layerMask"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.EntityManager.GetEntitiesInRange``1(UnityEngine.Vector3,System.Single)">
+            <summary>
+            [Shared] Get all entities in range of the provided position.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="position"></param>
+            <param name="range"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.EntityManager.Raycast(UnityEngine.Ray,System.UInt32,System.Single,System.Int32)">
+            <summary>
+            [Shared] Perform a raycast and rewind network hitboxes to the provided server tick.
+            </summary>
+            <param name="ray"></param>
+            <param name="tick"></param>
+            <param name="distance"></param>
+            <param name="layerMask"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.EntityManager.Create``1(System.String)">
+            <summary>
+            [Server] Create an entity from the provided network prefab name.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="prefabName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.EntityManager.Create``1(``0)">
+            <summary>
+            [Server] Create an entity from the provided prefab.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="prefab"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.EntityManager.Create(System.String)">
+            <summary>
+            [Server] Create an entity from the provided network prefab name.
+            </summary>
+            <param name="prefabName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.EntityManager.CreateWithId``1(System.String,System.UInt32)">
+            <summary>
+            [Server] Create an entity from the provided network prefab name and with the given identifier.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="prefabName"></param>
+            <param name="entityId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.EntityManager.SetScopeAll(zapnet.BaseEntity,System.Boolean)">
+            <summary>
+            [Server] Set the scope of the provided entity for all currently connected players.
+            </summary>
+            <param name="entity"></param>
+            <param name="inScope"></param>
+        </member>
+        <member name="M:zapnet.EntityManager.SetScope(zapnet.Player,zapnet.BaseEntity,System.Boolean)">
+            <summary>
+            [Server] Set the scope of the provided entity for a specific player.
+            </summary>
+            <param name="player"></param>
+            <param name="entity"></param>
+            <param name="inScope"></param>
+        </member>
+        <member name="M:zapnet.EntityManager.IsScoped(zapnet.Player,zapnet.BaseEntity)">
+            <summary>
+            [Server] Get whether an entity is scoped for the provided player.
+            </summary>
+            <param name="player"></param>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.EntityManager.Despawn(zapnet.Player,zapnet.BaseEntity)">
+            <summary>
+            [Server] Despawn an entity for the provided player.
+            </summary>
+            <param name="player"></param>
+            <param name="entity"></param>
+        </member>
+        <member name="M:zapnet.EntityManager.Spawn(zapnet.Player,zapnet.BaseEntity)">
+            <summary>
+            [Server] Spawn an entity for the provided player.
+            </summary>
+            <param name="player"></param>
+            <param name="entity"></param>
+        </member>
+        <member name="M:zapnet.EntityManager.FindAll``1">
+            <summary>
+            [Shared] Find all entities of the provided type.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.EntityManager.FindOne``1">
+            <summary>
+            [Shared] Find the first entity of the provided type.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.EntityManager.Find(System.UInt32)">
+            <summary>
+            [Shared] Find an entity by its unique identifier.
+            </summary>
+            <param name="entityId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:zapnet.NetworkManager">
+            <summary>
+            A behaviour to manage all network operations.
+            </summary>
+        </member>
+        <member name="E:zapnet.NetworkManager.onTick">
+            <summary>
+            Called whenever the network ticks.
+            </summary>
+        </member>
+        <member name="P:zapnet.NetworkManager.ServerHandler">
+            <summary>
+            Get the current server handler implementation.
+            </summary>
+        </member>
+        <member name="P:zapnet.NetworkManager.ClientHandler">
+            <summary>
+            Get the current client handler implementation.
+            </summary>
+        </member>
+        <member name="P:zapnet.NetworkManager.Server">
+            <summary>
+            Get the underlying game server object.
+            </summary>
+        </member>
+        <member name="P:zapnet.NetworkManager.Client">
+            <summary>
+            Get the underlying game client object.
+            </summary>
+        </member>
+        <member name="P:zapnet.NetworkManager.Network">
+            <summary>
+            Get the underlying NetPeer object from Lidgren.
+            </summary>
+        </member>
+        <member name="P:zapnet.NetworkManager.IsConnected">
+            <summary>
+            Get whether a network connection currently exists.
+            </summary>
+        </member>
+        <member name="P:zapnet.NetworkManager.ConnectionToServer">
+            <summary>
+            Get the underlying Lidgren NetConnection to the server.
+            </summary>
+        </member>
+        <member name="P:zapnet.NetworkManager.IsListenServer">
+            <summary>
+            Get whether we are a listen server (a client connected to a server sharing the same process.)
+            </summary>
+        </member>
+        <member name="P:zapnet.NetworkManager.IsServer">
+            <summary>
+            Get whether we are the server.
+            </summary>
+        </member>
+        <member name="P:zapnet.NetworkManager.IsClient">
+            <summary>
+            Get whether we are a client.
+            </summary>
+        </member>
+        <member name="P:zapnet.NetworkManager.FixedDeltaTime">
+            <summary>
+            Get a fixed delta time value representing the time it takes to perform a single tick.
+            </summary>
+        </member>
+        <member name="P:zapnet.NetworkManager.RoundtripTickTime">
+            <summary>
+            Get the estimated amount of ticks it takes to perform a roundtrip.
+            </summary>
+        </member>
+        <member name="P:zapnet.NetworkManager.ServerTime">
+            <summary>
+            Get the estimated time on the server in seconds.
+            </summary>
+        </member>
+        <member name="P:zapnet.NetworkManager.ServerTick">
+            <summary>
+            Get the estimated server tick value.
+            </summary>
+        </member>
+        <member name="P:zapnet.NetworkManager.LocalTick">
+            <summary>
+            Get the local tick value (not synchronized.)
+            </summary>
+        </member>
+        <member name="M:zapnet.NetworkManager.SendTo(Lidgren.Network.NetOutgoingMessage,System.Collections.Generic.IList{Lidgren.Network.NetConnection},Lidgren.Network.NetDeliveryMethod,System.Int32)">
+            <summary>
+            Send an outgoing message to the provided recipients.
+            </summary>
+            <param name="buffer"></param>
+            <param name="recipients"></param>
+            <param name="method"></param>
+            <param name="channel"></param>
+        </member>
+        <member name="M:zapnet.NetworkManager.SendTo(Lidgren.Network.NetOutgoingMessage,Lidgren.Network.NetConnection,Lidgren.Network.NetDeliveryMethod,System.Int32)">
+            <summary>
+            Send an outgoing message to the provided recipient.
+            </summary>
+            <param name="buffer"></param>
+            <param name="recipient"></param>
+            <param name="method"></param>
+            <param name="channel"></param>
+        </member>
+        <member name="M:zapnet.NetworkManager.SendToAll(Lidgren.Network.NetOutgoingMessage,Lidgren.Network.NetConnection,Lidgren.Network.NetDeliveryMethod,System.Int32)">
+            <summary>
+            Send an outgoing message to all recipients except the provided one.
+            </summary>
+            <param name="buffer"></param>
+            <param name="except"></param>
+            <param name="method"></param>
+            <param name="channel"></param>
+        </member>
+        <member name="M:zapnet.NetworkManager.SendToAll(Lidgren.Network.NetOutgoingMessage,Lidgren.Network.NetDeliveryMethod,System.Int32)">
+            <summary>
+            Send an outgoing message to all recipients.
+            </summary>
+            <param name="buffer"></param>
+            <param name="method"></param>
+            <param name="channel"></param>
+        </member>
+        <member name="M:zapnet.NetworkManager.SendToServer(Lidgren.Network.NetOutgoingMessage,Lidgren.Network.NetDeliveryMethod,System.Int32)">
+            <summary>
+            Send an outgoing message to the server.
+            </summary>
+            <param name="buffer"></param>
+            <param name="method"></param>
+            <param name="channel"></param>
+        </member>
+        <member name="M:zapnet.NetworkManager.RegisterChannel``1(``0)">
+            <summary>
+            Register a new channel from the provided custom enum value.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="identifier"></param>
+        </member>
+        <member name="M:zapnet.NetworkManager.GetChannel``1(``0)">
+            <summary>
+            Get a unique channel integer from the provided custom enum value.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="identifier"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.NetworkManager.GetRemoteCallId(System.Reflection.MethodInfo)">
+            <summary>
+            Get the unique remote call identifier from the provided method info.
+            </summary>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.NetworkManager.GetRemoteCallAttribute(System.Byte)">
+            <summary>
+            Get the remote call attribute for the provided unique remote call identifier.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.NetworkManager.GetRemoteCallMethod(System.Byte)">
+            <summary>
+            Get the method info for the provided unique remote call identifier.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.NetworkManager.RegisterPacket``1(System.Int32)">
+            <summary>
+            Register a new packet type and optionally precache a number of instances to be pooled. Multiple calls
+            of this method MUST be called in the same order on the server and client.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="precache"></param>
+        </member>
+        <member name="M:zapnet.NetworkManager.Recycle(zapnet.INetworkPoolable)">
+            <summary>
+            Recycle a poolable network object.
+            </summary>
+            <param name="poolable"></param>
+        </member>
+        <member name="M:zapnet.NetworkManager.Fetch(System.Type)">
+            <summary>
+            Fetch a poolable network object with the provided type.
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.NetworkManager.Fetch``1">
+            <summary>
+            Fetch a poolable network object with the provided type.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.NetworkManager.CreatePacket(System.Byte)">
+            <summary>
+            Create a network packet with the provided unique packet identifier.
+            </summary>
+            <param name="packetId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.NetworkManager.CreatePacket``1">
+            <summary>
+            Create a network packet with the provided network packet type.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.NetworkManager.GetPacketId``1">
+            <summary>
+            Get the unique packet identifier for the provided network packet type.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.NetworkManager.GetIdFromPacket(zapnet.INetworkPacket)">
+            <summary>
+            Get the unique packet identifier for the provided network packet.
+            </summary>
+            <param name="packet"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.NetworkManager.CreateEvent``1(``0)">
+            <summary>
+            Create a new event (fetched from a pool) for the provided event data type. Optionally pass
+            in existing data to use.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.NetworkManager.Call(System.Byte,zapnet.INetworkPacket)">
+            <summary>
+            Fire an event for the provided unique packet identifier and data.
+            </summary>
+            <param name="packetId"></param>
+            <param name="data"></param>
+        </member>
+        <member name="M:zapnet.NetworkManager.Subscribe``1(zapnet.OnProcessEvent{``0})">
+            <summary>
+            Subscribe to when the provided network packet type is received.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="callback"></param>
+        </member>
+        <member name="M:zapnet.NetworkManager.Unsubscribe``1(zapnet.OnProcessEvent{``0})">
+            <summary>
+            Unsubscribe from when the provided network packet type is received.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="callback"></param>
+        </member>
+        <member name="M:zapnet.NetworkManager.CreateMessage">
+            <summary>
+            Create a new Lidgren outgoing message with an initial capacity of 256 bytes.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.NetworkManager.Host(System.Int32,zapnet.IServerHandler,zapnet.NetSimulation)">
+            <summary>
+            Start hosting a server with the provided server handler. This will automatically bind to
+            any available network address.
+            </summary>
+            <param name="port"></param>
+            <param name="handler"></param>
+            <param name="simulation"></param>
+        </member>
+        <member name="M:zapnet.NetworkManager.Host(System.Net.IPAddress,System.Int32,zapnet.IServerHandler,zapnet.NetSimulation)">
+            <summary>
+            Start hosting a server with the provided server handler. You can manually specify
+            which network address to bind to.
+            </summary>
+            <param name="address"></param>
+            <param name="port"></param>
+            <param name="handler"></param>
+            <param name="simulation"></param>
+        </member>
+        <member name="M:zapnet.NetworkManager.Connect(System.String,System.Int32,zapnet.IClientHandler,zapnet.NetSimulation)">
+            <summary>
+            Connect to an existing server with the provided client handler.
+            </summary>
+            <param name="ip"></param>
+            <param name="port"></param>
+            <param name="handler"></param>
+            <param name="simulation"></param>
+        </member>
+        <member name="M:zapnet.NetworkManager.MakeListenServer(zapnet.IClientHandler)">
+            <summary>
+            Make this server a listen server. This automatically adds a new player that represents the server. This should only
+            be called after the scene has been loaded, and the server has finished loading prefabs. Essentially, you should only
+            call this at the point you would otherwise allow regular players to connect.
+            </summary>
+            <param name="handler">The handler.</param>
+        </member>
+        <member name="M:zapnet.NetworkManager.IsTick(System.UInt32)">
+            <summary>
+            Get whether the current tick sits on the provided priority number. For example, calling
+            IsTick(1) will return true for every tick, IsTick(3) will return true for every 3rd tick,
+            and so on.
+            </summary>
+            <param name="priority"></param>
+            <returns></returns>
+        </member>
+        <member name="T:zapnet.PlayerManager">
+            <summary>
+            A behaviour to manage all network players.
+            </summary>
+        </member>
+        <member name="E:zapnet.PlayerManager.onPlayerEntityChanged">
+            <summary>
+            Invoked when a player's entity has changed.
+            </summary>
+        </member>
+        <member name="E:zapnet.PlayerManager.onLocalPlayerReady">
+            <summary>
+            Invoked when the local player is ready.
+            </summary>
+        </member>
+        <member name="E:zapnet.PlayerManager.onPlayerAdded">
+            <summary>
+            Invoked when a player has been added.
+            </summary>
+        </member>
+        <member name="E:zapnet.PlayerManager.onPlayerRemoved">
+            <summary>
+            Invoked when a player has been removed.
+            </summary>
+        </member>
+        <member name="E:zapnet.PlayerManager.onInitialDataSent">
+            <summary>
+            Invoked when initial data has been sent.
+            </summary>
+        </member>
+        <member name="E:zapnet.PlayerManager.onInitialDataReceived">
+            <summary>
+            Invoked when initial data has been received.
+            </summary>
+        </member>
+        <member name="P:zapnet.PlayerManager.LocalPlayer">
+            <summary>
+            Get the local player.
+            </summary>
+        </member>
+        <member name="P:zapnet.PlayerManager.LocalPlayerId">
+            <summary>
+            Get the local player's unique player identifier.
+            </summary>
+        </member>
+        <member name="P:zapnet.PlayerManager.Players">
+            <summary>
+            Get a table list of currently connected players.
+            </summary>
+        </member>
+        <member name="M:zapnet.PlayerManager.GetFreeId">
+            <summary>
+            Get the next free unique player identifier.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.PlayerManager.Find(Lidgren.Network.NetConnection)">
+            <summary>
+            Find a player with the provided Lidgren NetConnection.
+            </summary>
+            <param name="connection"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.PlayerManager.Find(System.UInt32)">
+            <summary>
+            Find a player with the provided unique player identifier.
+            </summary>
+            <param name="playerId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:zapnet.PrefabManager">
+            <summary>
+            A behaviour to manage all network prefabs.
+            </summary>
+        </member>
+        <member name="M:zapnet.PrefabManager.GetNetworkTable">
+            <summary>
+            [Shared] Get the network table. This is a dictionary of prefab names
+            and their corresponding unique network identifiers that can be
+            sent across the network.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.PrefabManager.LoadWithId(NetworkPrefab,System.UInt16)">
+            <summary>
+            [Shared] Load a single network prefab and manually specify its unique network identifier.
+            Use this with caution, and make sure your prefabs are loaded with the same
+            unique network identifier for both your Server and Client. This must be called
+            after you have started a Server or a Client.
+            </summary>
+            <param name="prefab"></param>
+            <param name="id"></param>
+        </member>
+        <member name="M:zapnet.PrefabManager.LoadAll(NetworkPrefab[])">
+            <summary>
+            [Shared] Load all network prefabs in the provided array. This must be called after you
+            have started a Server or a Client.
+            </summary>
+            <param name="prefabs"></param>
+        </member>
+        <member name="M:zapnet.PrefabManager.LoadAll(System.String)">
+            <summary>
+            [Shared] Load all network prefabs in the provided directory. The directory must
+            live inside a Resources folder in your Unity project. This must be called
+            after you have started a Server or a Client.
+            </summary>
+            <param name="directory"></param>
+        </member>
+        <member name="M:zapnet.PrefabManager.GetId(System.String)">
+            <summary>
+            [Shared] Get the unique network identifier for the provided unique name.
+            </summary>
+            <param name="uniqueName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.PrefabManager.Find``1(System.UInt16)">
+            <summary>
+            [Shared] Find a prefab by its unique network identifier.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.PrefabManager.Find(System.UInt16)">
+            <summary>
+            [Shared] Find a prefab by its unique network identifier.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.PrefabManager.Find``1(System.String)">
+            <summary>
+            [Shared] Find a prefab by its unique name.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="uniqueName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.PrefabManager.Find(System.String)">
+            <summary>
+            [Shared] Find a prefab by its unique name.
+            </summary>
+            <param name="uniqueName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:zapnet.EventListener">
+            <summary>
+            Data representing an event listener. Used for all subscriptions to network events.
+            </summary>
+        </member>
+        <member name="F:zapnet.EventListener.callback">
+            <summary>
+            The callback that should be invoked when the event fires.
+            </summary>
+        </member>
+        <member name="F:zapnet.EventListener.original">
+            <summary>
+            The original callback used for comparison purposes when
+            removing existing event listeners.
+            </summary>
+        </member>
+        <member name="T:zapnet.BaseEventData">
+            <summary>
+            An abstract class for all network event data.
+            </summary>
+        </member>
+        <member name="P:zapnet.BaseEventData.Entity">
+            <summary>
+            The entity this event is being invoked on.
+            </summary>
+        </member>
+        <member name="P:zapnet.BaseEventData.Sender">
+            <summary>
+            The player that sent this event.
+            </summary>
+        </member>
+        <member name="P:zapnet.BaseEventData.SendTick">
+            <summary>
+            The tick number this event was sent on.
+            </summary>
+        </member>
+        <member name="M:zapnet.BaseEventData.Write(Lidgren.Network.NetOutgoingMessage)">
+            <summary>
+            Write data to an outgoing message.
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:zapnet.BaseEventData.Read(Lidgren.Network.NetIncomingMessage)">
+            <summary>
+            Read and process data from an incoming message.
+            </summary>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.BaseEventData.GetEarlyEventSettings">
+            <summary>
+            Get the settings defining how the event should behave if it is received
+            before an entity has spawned locally.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.BaseEventData.Recycle">
+            <summary>
+            Called when the event should be returned to the event pool.
+            </summary>
+        </member>
+        <member name="M:zapnet.BaseEventData.OnRecycled">
+            <summary>
+            When the object has been returned to its pool.
+            </summary>
+        </member>
+        <member name="M:zapnet.BaseEventData.OnFetched">
+            <summary>
+            When the object has been fetched from its pool.
+            </summary>
+        </member>
+        <member name="T:zapnet.EarlyEventSettings">
+            <summary>
+            Data representing settings to define how an event should behave if it was received
+            before an entity has spawned locally.
+            </summary>
+        </member>
+        <member name="F:zapnet.EarlyEventSettings.shouldWait">
+            <summary>
+            Whether or not the event should wait until the entity spawns.
+            </summary>
+        </member>
+        <member name="F:zapnet.EarlyEventSettings.onlyLatest">
+            <summary>
+            When the entity spawns, only invoke the latest event of this type received.
+            </summary>
+        </member>
+        <member name="F:zapnet.EarlyEventSettings.staleTime">
+            <summary>
+            How long before this event becomes stale and is discarded in seconds.
+            </summary>
+        </member>
+        <member name="F:zapnet.EarlyEventSettings.bufferSize">
+            <summary>
+            The maximum amount of events of this type that should be held at one time.
+            </summary>
+        </member>
+        <member name="T:zapnet.NetworkEvent`1">
+            <summary>
+            Represents an event that will be sent across the network.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:zapnet.NetworkEvent`1.Type">
+            <summary>
+            The type of this network event.
+            </summary>
+        </member>
+        <member name="P:zapnet.NetworkEvent`1.Entity">
+            <summary>
+            The entity that this event will be invoked on.
+            </summary>
+        </member>
+        <member name="P:zapnet.NetworkEvent`1.AutoRecipients">
+            <summary>
+            Whether or not to automatically add all connected players as recipients
+            if no recipients are manually added.
+            </summary>
+        </member>
+        <member name="P:zapnet.NetworkEvent`1.RecycleData">
+            <summary>
+            Whether or not to recycle data attached to this event.
+            </summary>
+        </member>
+        <member name="P:zapnet.NetworkEvent`1.RecycleSelf">
+            <summary>
+            Whether or not to recycle this event.
+            </summary>
+        </member>
+        <member name="P:zapnet.NetworkEvent`1.Data">
+            <summary>
+            Get the data object that will be sent with this event.
+            </summary>
+        </member>
+        <member name="M:zapnet.NetworkEvent`1.Reset">
+            <summary>
+            Reset the event to its default settings.
+            </summary>
+        </member>
+        <member name="M:zapnet.NetworkEvent`1.SetDeliveryMethod(Lidgren.Network.NetDeliveryMethod)">
+            <summary>
+            Set the delivery method of this event.
+            </summary>
+            <param name="method"></param>
+        </member>
+        <member name="M:zapnet.NetworkEvent`1.SetRecipients(System.Collections.Generic.HashSet{zapnet.Player})">
+            <summary>
+            Set the recipients of this event.
+            </summary>
+            <param name="recipients"></param>
+        </member>
+        <member name="M:zapnet.NetworkEvent`1.SetEntity(zapnet.BaseEntity)">
+            <summary>
+            Set the entity this event will be invoked on.
+            </summary>
+            <param name="entity"></param>
+        </member>
+        <member name="M:zapnet.NetworkEvent`1.SetRecipients(System.Collections.Generic.List{zapnet.Player})">
+            <summary>
+            Set the recipients of this event.
+            </summary>
+            <param name="recipients"></param>
+        </member>
+        <member name="M:zapnet.NetworkEvent`1.AddRecipient(zapnet.Player)">
+            <summary>
+            Add a recipient to this event.
+            </summary>
+            <param name="recipient"></param>
+        </member>
+        <member name="M:zapnet.NetworkEvent`1.RemoveRecipient(zapnet.Player)">
+            <summary>
+            Remove a recipient from this event.
+            </summary>
+            <param name="recipient"></param>
+        </member>
+        <member name="M:zapnet.NetworkEvent`1.IgnoreRecipient(zapnet.Player)">
+            <summary>
+            Ignore a recipient from receiving this event.
+            </summary>
+            <param name="recipient"></param>
+        </member>
+        <member name="M:zapnet.NetworkEvent`1.ClearRecipients">
+            <summary>
+            Clear all recipients of this event.
+            </summary>
+        </member>
+        <member name="M:zapnet.NetworkEvent`1.ClearIgnored">
+            <summary>
+            Clear the list of ignored recipients for this event.
+            </summary>
+        </member>
+        <member name="M:zapnet.NetworkEvent`1.SetChannel``1(``0)">
+            <summary>
+            Set the channel to send the event on. Pass in a value from your own custom enum.
+            </summary>
+            <typeparam name="E"></typeparam>
+            <param name="identifier"></param>
+        </member>
+        <member name="M:zapnet.NetworkEvent`1.SetChannel(System.Int32)">
+            <summary>
+            Set the channel to send this event on as a hardcoded integer. It is recommended to
+            use the overload of this method that allows you to pass in a custom enum value.
+            </summary>
+            <param name="channel"></param>
+        </member>
+        <member name="M:zapnet.NetworkEvent`1.Recycle">
+            <summary>
+            Recycle this event and return it to the event pool.
+            </summary>
+        </member>
+        <member name="M:zapnet.NetworkEvent`1.Invoke">
+            <summary>
+            Invoke the event and call subscribers locally.
+            </summary>
+        </member>
+        <member name="M:zapnet.NetworkEvent`1.Send(System.Boolean)">
+            <summary>
+            Send the event to its recipients.
+            </summary>
+            <param name="autoRecycle">Whether or not to try and automatically recycle the event and its data.</param>
+        </member>
+        <member name="M:zapnet.NetworkEvent`1.OnRecycled">
+            <summary>
+            When the object has been returned to its pool.
+            </summary>
+        </member>
+        <member name="M:zapnet.NetworkEvent`1.OnFetched">
+            <summary>
+            When the object has been fetched from its pool.
+            </summary>
+        </member>
+        <member name="T:zapnet.NetworkEventType">
+            <summary>
+            An enum representing the type of a network event.
+            </summary>
+        </member>
+        <member name="F:zapnet.NetworkEventType.Global">
+            <summary>
+            These events are sent and received in global space.
+            </summary>
+        </member>
+        <member name="F:zapnet.NetworkEventType.Entity">
+            <summary>
+            These events are only sent to a specific entity.
+            </summary>
+        </member>
+        <member name="T:zapnet.GameClient">
+            <summary>
+            A wrapper around Lidgren's NetClient object that handles all messages sent to and received
+            from the server.
+            </summary>
+        </member>
+        <member name="E:zapnet.GameClient.onConnectionSuccessful">
+            <summary>
+            Invoked when a connection to the server was successful.
+            </summary>
+        </member>
+        <member name="E:zapnet.GameClient.onConnectionFailed">
+            <summary>
+            Invoked when a connection to the server has failed.
+            </summary>
+        </member>
+        <member name="P:zapnet.GameClient.Network">
+            <summary>
+            Get the underlying NetClient object from Lidgren.
+            </summary>
+        </member>
+        <member name="P:zapnet.GameClient.AverageRoundtripTime">
+            <summary>
+            Get the average round rountrip time in seconds.
+            </summary>
+        </member>
+        <member name="P:zapnet.GameClient.AverageRoundtripTimeMS">
+            <summary>
+            Get the average roundtrip time in milliseconds.
+            </summary>
+        </member>
+        <member name="P:zapnet.GameClient.TimeOffset">
+            <summary>
+            Get the time offset. This is used to determine the time difference between
+            this client and the server.
+            </summary>
+        </member>
+        <member name="T:zapnet.GameServer">
+            <summary>
+            A wrapper around Lidgren's NetServer object that handles all messages sent to and received
+            from clients.
+            </summary>
+        </member>
+        <member name="P:zapnet.GameServer.Network">
+            <summary>
+            Get the underlying NetServer object from Lidgren.
+            </summary>
+        </member>
+        <member name="T:zapnet.IClientHandler">
+            <summary>
+            A generic interface for a client handler. Your game must have an implementation of this.
+            </summary>
+        </member>
+        <member name="M:zapnet.IClientHandler.GetCredentialsPacket">
+            <summary>
+            Create and return a credentials packet to send to the server.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.IClientHandler.ReadInitialData(Lidgren.Network.NetIncomingMessage)">
+            <summary>
+            Process initial data received by the server.
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:zapnet.IClientHandler.OnDisconnected">
+            <summary>
+            When the client has disconnected.
+            </summary>
+        </member>
+        <member name="M:zapnet.IClientHandler.OnShutdown">
+            <summary>
+            When the client has shutdown.
+            </summary>
+        </member>
+        <member name="T:zapnet.INetworkPoolable">
+            <summary>
+            An interface for poolable network objects.
+            </summary>
+        </member>
+        <member name="M:zapnet.INetworkPoolable.OnRecycled">
+            <summary>
+            When the object has been returned to its pool.
+            </summary>
+        </member>
+        <member name="M:zapnet.INetworkPoolable.OnFetched">
+            <summary>
+            When the object has been fetched from its pool.
+            </summary>
+        </member>
+        <member name="T:zapnet.IServerHandler">
+            <summary>
+            A generic interface for a server handler. Your game must have an implementation of this.
+            </summary>
+        </member>
+        <member name="M:zapnet.IServerHandler.WriteInitialData(zapnet.Player,Lidgren.Network.NetOutgoingMessage)">
+            <summary>
+            When initial data should be written to send to a player.
+            </summary>
+            <param name="player"></param>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:zapnet.IServerHandler.CanPlayerAuth(zapnet.INetworkPacket)">
+            <summary>
+            Whether or not a player can authenticate with the server.
+            </summary>
+            <param name="credentials"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.IServerHandler.OnPlayerConnected(zapnet.Player,zapnet.INetworkPacket)">
+            <summary>
+            When a player has connected.
+            </summary>
+            <param name="player"></param>
+            <param name="credentials"></param>
+        </member>
+        <member name="M:zapnet.IServerHandler.OnPlayerDisconnected(zapnet.Player)">
+            <summary>
+            When a player has disconnected.
+            </summary>
+            <param name="player"></param>
+        </member>
+        <member name="M:zapnet.IServerHandler.OnInitialDataReceived(zapnet.Player,zapnet.INetworkPacket)">
+            <summary>
+            When a player has received initial data.
+            </summary>
+            <param name="player"></param>
+            <param name="credentials"></param>
+        </member>
+        <member name="T:zapnet.MessageType">
+            <summary>
+            Contains internally used message types for interfacing with Lidgren.
+            </summary>
+        </member>
+        <member name="F:zapnet.MessageType.PlayerDisconnected">
+            <summary>
+            When a player has disconnected.
+            </summary>
+        </member>
+        <member name="F:zapnet.MessageType.PlayerConnected">
+            <summary>
+            When a player has connected.
+            </summary>
+        </member>
+        <member name="F:zapnet.MessageType.PreventSpawning">
+            <summary>
+            Change whether entities should be received.
+            </summary>
+        </member>
+        <member name="F:zapnet.MessageType.InitialData">
+            <summary>
+            When initial data is received.
+            </summary>
+        </member>
+        <member name="F:zapnet.MessageType.SpawnEntity">
+            <summary>
+            When an entity has spawned.
+            </summary>
+        </member>
+        <member name="F:zapnet.MessageType.DespawnEntity">
+            <summary>
+            When an entity has despawned.
+            </summary>
+        </member>
+        <member name="F:zapnet.MessageType.StateUpdate">
+            <summary>
+            When  entities receive a state update.
+            </summary>
+        </member>
+        <member name="F:zapnet.MessageType.Event">
+            <summary>
+            When a network event is received.
+            </summary>
+        </member>
+        <member name="T:zapnet.NetChannel">
+            <summary>
+            An enum representing internally used network channels.
+            </summary>
+        </member>
+        <member name="F:zapnet.NetChannel.EntityStates">
+            <summary>
+            Used to send data specifically for entity states.
+            </summary>
+        </member>
+        <member name="F:zapnet.NetChannel.PlayerInput">
+            <summary>
+            Used to send data specifically for player input.
+            </summary>
+        </member>
+        <member name="F:zapnet.NetChannel.SyncVars">
+            <summary>
+            Used to send data specifically for synchronized variables.
+            </summary>
+        </member>
+        <member name="T:zapnet.NetSettings">
+            <summary>
+            Contains internally used network settings. You can change these in your game but be careful.
+            </summary>
+        </member>
+        <member name="T:zapnet.NetSimulation">
+            <summary>
+            Data representing network simulation configuration.
+            </summary>
+        </member>
+        <member name="T:zapnet.INetworkPacket">
+            <summary>
+            An interfacing representing a poolable network packet.
+            </summary>
+        </member>
+        <member name="M:zapnet.INetworkPacket.Read(Lidgren.Network.NetIncomingMessage)">
+            <summary>
+            Read and process data from an incoming message.
+            </summary>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.INetworkPacket.Write(Lidgren.Network.NetOutgoingMessage)">
+            <summary>
+            Write data to an outgoing message.
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="T:zapnet.PlayerListPacket">
+            <summary>
+            Data representing all currently connected players.
+            </summary>
+        </member>
+        <member name="P:zapnet.PlayerListPacket.PlayerIds">
+            <summary>
+            A list of unique player identifiers.
+            </summary>
+        </member>
+        <member name="P:zapnet.PlayerListPacket.LocalPlayerId">
+            <summary>
+            The local player's unique identifier.
+            </summary>
+        </member>
+        <member name="T:zapnet.PrefabListPacket">
+            <summary>
+            Data representing a list of network prefabs.
+            </summary>
+        </member>
+        <member name="P:zapnet.PrefabListPacket.Prefabs">
+            <summary>
+            A table of prefabs by their name and unique identifier.
+            </summary>
+        </member>
+        <member name="T:zapnet.RemoteCall">
+            <summary>
+            Data representing a remote call.
+            </summary>
+        </member>
+        <member name="P:zapnet.RemoteCall.Params">
+            <summary>
+            Get the params buffer attached to this remote call.
+            </summary>
+        </member>
+        <member name="M:zapnet.RemoteCall.#ctor(zapnet.NetworkEvent{zapnet.RemoteCallEvent},System.Boolean)">
+            <summary>
+            Initialize a new remote call for the provided event.
+            </summary>
+            <param name="evnt"></param>
+            <param name="invokeOnSelf"></param>
+        </member>
+        <member name="M:zapnet.RemoteCall.Call">
+            <summary>
+            Send the call event and invoke the corresponding remote method.
+            </summary>
+        </member>
+        <member name="T:zapnet.SyncColor">
+            <summary>
+            A Color synchronized across the network.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncColor.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:zapnet.SyncColor"/> class.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncColor.#ctor(UnityEngine.Color,zapnet.SyncTarget)">
+            <summary>
+            Initializes a new instance of the <see cref="T:zapnet.SyncColor"/> class.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="target">The target.</param>
+        </member>
+        <member name="M:zapnet.SyncColor.Read(Lidgren.Network.NetIncomingMessage,System.Boolean)">
+            <summary>
+            Read and process data from an incoming message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="changeSilently">Whether or not to avoid invoking change callbacks.</param>
+        </member>
+        <member name="M:zapnet.SyncColor.Write(Lidgren.Network.NetOutgoingMessage,System.Boolean)">
+            <summary>
+            Write data to an outgoing message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="dirtyOnly"></param>
+        </member>
+        <member name="T:zapnet.SyncList`1">
+            <summary>
+            A byte synchronized across the network.
+            </summary>
+        </member>
+        <member name="T:zapnet.SyncList`1.OnItemAdded">
+            <summary>
+            A callback for when an item is added to the list.
+            </summary>
+        </member>
+        <member name="T:zapnet.SyncList`1.OnItemRemoved">
+            <summary>
+            A callback for when an item is removed from the list.
+            </summary>
+        </member>
+        <member name="T:zapnet.SyncList`1.OnItemUpdated">
+            <summary>
+            A callback for when an item is updated in the list.
+            </summary>
+        </member>
+        <member name="T:zapnet.SyncList`1.OnListCleared">
+            <summary>
+            A callback for when the list has been cleared.
+            </summary>
+        </member>
+        <member name="T:zapnet.SyncList`1.SyncListAction">
+            <summary>
+            A struct containing information about a synchronized list action.
+            </summary>
+            <seealso cref="T:zapnet.ISyncVar" />
+        </member>
+        <member name="E:zapnet.SyncList`1.onItemAdded">
+            <summary>
+            [Shared] Invoked when an item is added.
+            </summary>
+        </member>
+        <member name="E:zapnet.SyncList`1.onItemRemoved">
+            [Shared] <summary>
+            Invoked when an item is removed.
+            </summary>
+        </member>
+        <member name="E:zapnet.SyncList`1.onItemUpdated">
+            <summary>
+            [Shared] Invoked when an item is updated.
+            </summary>
+        </member>
+        <member name="E:zapnet.SyncList`1.onListCleared">
+            <summary>
+            [Shared] Invoked when the list is cleared.
+            </summary>
+        </member>
+        <member name="P:zapnet.SyncList`1.Item(System.Int32)">
+            <summary>
+            Gets or sets the item at the specified index.
+            </summary>
+            <value>
+            The item to get or set.
+            </value>
+            <param name="index">The index.</param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.SyncList`1.#ctor(zapnet.SyncTarget)">
+            <summary>
+            Initializes a new instance of the <see cref="T:zapnet.SyncList`1"/> class.
+            </summary>
+            <param name="target">The target.</param>
+        </member>
+        <member name="P:zapnet.SyncList`1.Target">
+            <summary>
+            Which kind of player the variable will be synchronized with.
+            </summary>
+        </member>
+        <member name="P:zapnet.SyncList`1.IsDirty">
+            <summary>
+            Whether or not the synchronized variable is dirty.
+            </summary>
+        </member>
+        <member name="P:zapnet.SyncList`1.IsPaused">
+            <summary>
+            Whether or not synchronization for this variable is paused.
+            </summary>
+        </member>
+        <member name="P:zapnet.SyncList`1.Metadata">
+            <summary>
+            Get any metadata attached to this synchronized variable.
+            </summary>
+        </member>
+        <member name="P:zapnet.SyncList`1.HasMetdata">
+            <summary>
+            Whether or not the synchronized variable has any metadata attached.
+            </summary>
+        </member>
+        <member name="P:zapnet.SyncList`1.Count">
+            <summary>
+            Get the total amount of items in the list.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncList`1.Clear">
+            <summary>
+            [Server] Clears all items from the list.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncList`1.Add(`0)">
+            <summary>
+            [Server] Adds the specified item.
+            </summary>
+            <param name="item">The item.</param>
+        </member>
+        <member name="M:zapnet.SyncList`1.Remove(`0)">
+            <summary>
+            [Server] Removes the specified item.
+            </summary>
+            <param name="item">The item.</param>
+        </member>
+        <member name="M:zapnet.SyncList`1.RemoveAt(System.Int32)">
+            <summary>
+            [Server] Removes the item at the specified index.
+            </summary>
+            <param name="index">The index.</param>
+        </member>
+        <member name="M:zapnet.SyncList`1.ClearMetadata">
+            <summary>
+            Clear any metadata attached to this synchronized variable.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncList`1.ReadMetadata">
+            <summary>
+            Read the metadata buffer from the start.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.SyncList`1.Pause">
+            <summary>
+            Pause synchronization updates for this list.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncList`1.Resume">
+            <summary>
+            Resume synchronization updates for this list.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncList`1.Read(Lidgren.Network.NetIncomingMessage,System.Boolean)">
+            <summary>
+            Read and process data from an incoming message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="changeSilently">Whether or not to avoid invoking change callbacks.</param>
+        </member>
+        <member name="M:zapnet.SyncList`1.Write(Lidgren.Network.NetOutgoingMessage,System.Boolean)">
+            <summary>
+            Write data to an outgoing message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="dirtyOnly"></param>
+        </member>
+        <member name="M:zapnet.SyncList`1.ToString">
+            <summary>
+            Converts to string.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /> that represents this instance.
+            </returns>
+        </member>
+        <member name="M:zapnet.SyncList`1.SetDirtyHandler(System.Action{zapnet.ISyncVar})">
+            <summary>
+            Sets a callback to be invoked when the synchronized variable becomes dirty.
+            </summary>
+            <param name="callback">The callback.</param>
+        </member>
+        <member name="T:zapnet.SyncQuaternion">
+            <summary>
+            A Quaternion synchronized across the network.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncQuaternion.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:zapnet.SyncQuaternion"/> class.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncQuaternion.#ctor(UnityEngine.Quaternion,zapnet.SyncTarget)">
+            <summary>
+            Initializes a new instance of the <see cref="T:zapnet.SyncQuaternion"/> class.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="target">The target.</param>
+        </member>
+        <member name="M:zapnet.SyncQuaternion.Read(Lidgren.Network.NetIncomingMessage,System.Boolean)">
+            <summary>
+            Read and process data from an incoming message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="changeSilently">Whether or not to avoid invoking change callbacks.</param>
+        </member>
+        <member name="M:zapnet.SyncQuaternion.Write(Lidgren.Network.NetOutgoingMessage,System.Boolean)">
+            <summary>
+            Write data to an outgoing message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="dirtyOnly"></param>
+        </member>
+        <member name="T:zapnet.SyncShort">
+            <summary>
+            A 16 bit signed integer synchronized across the network.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncShort.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:zapnet.SyncShort"/> class.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncShort.#ctor(System.Int16,zapnet.SyncTarget)">
+            <summary>
+            Initializes a new instance of the <see cref="T:zapnet.SyncShort"/> class.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="target">The target.</param>
+        </member>
+        <member name="M:zapnet.SyncShort.Read(Lidgren.Network.NetIncomingMessage,System.Boolean)">
+            <summary>
+            Read and process data from an incoming message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="changeSilently">Whether or not to avoid invoking change callbacks.</param>
+        </member>
+        <member name="M:zapnet.SyncShort.Write(Lidgren.Network.NetOutgoingMessage,System.Boolean)">
+            <summary>
+            Write data to an outgoing message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="dirtyOnly"></param>
+        </member>
+        <member name="T:zapnet.SyncLong">
+            <summary>
+            A 64 bit signed integer synchronized across the network.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncLong.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:zapnet.SyncLong"/> class.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncLong.#ctor(System.Int64,zapnet.SyncTarget)">
+            <summary>
+            Initializes a new instance of the <see cref="T:zapnet.SyncLong"/> class.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="target">The target.</param>
+        </member>
+        <member name="M:zapnet.SyncLong.Read(Lidgren.Network.NetIncomingMessage,System.Boolean)">
+            <summary>
+            Read and process data from an incoming message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="changeSilently">Whether or not to avoid invoking change callbacks.</param>
+        </member>
+        <member name="M:zapnet.SyncLong.Write(Lidgren.Network.NetOutgoingMessage,System.Boolean)">
+            <summary>
+            Write data to an outgoing message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="dirtyOnly"></param>
+        </member>
+        <member name="T:zapnet.SyncUShort">
+            <summary>
+            A 16 bit unsigned integer synchronized across the network.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncUShort.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:zapnet.SyncUShort"/> class.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncUShort.#ctor(System.UInt16,zapnet.SyncTarget)">
+            <summary>
+            Initializes a new instance of the <see cref="T:zapnet.SyncUShort"/> class.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="target">The target.</param>
+        </member>
+        <member name="M:zapnet.SyncUShort.Read(Lidgren.Network.NetIncomingMessage,System.Boolean)">
+            <summary>
+            Read and process data from an incoming message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="changeSilently">Whether or not to avoid invoking change callbacks.</param>
+        </member>
+        <member name="M:zapnet.SyncUShort.Write(Lidgren.Network.NetOutgoingMessage,System.Boolean)">
+            <summary>
+            Write data to an outgoing message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="dirtyOnly"></param>
+        </member>
+        <member name="T:zapnet.SyncVector3">
+            <summary>
+            A Vector3 synchronized across the network.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncVector3.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:zapnet.SyncVector3"/> class.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncVector3.#ctor(UnityEngine.Vector3,zapnet.SyncTarget)">
+            <summary>
+            Initializes a new instance of the <see cref="T:zapnet.SyncVector3"/> class.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="target">The target.</param>
+        </member>
+        <member name="M:zapnet.SyncVector3.Read(Lidgren.Network.NetIncomingMessage,System.Boolean)">
+            <summary>
+            Read and process data from an incoming message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="changeSilently">Whether or not to avoid invoking change callbacks.</param>
+        </member>
+        <member name="M:zapnet.SyncVector3.Write(Lidgren.Network.NetOutgoingMessage,System.Boolean)">
+            <summary>
+            Write data to an outgoing message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="dirtyOnly"></param>
+        </member>
+        <member name="T:zapnet.SyncByte">
+            <summary>
+            A byte synchronized across the network.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncByte.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:zapnet.SyncByte"/> class.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncByte.#ctor(System.Byte,zapnet.SyncTarget)">
+            <summary>
+            Initializes a new instance of the <see cref="T:zapnet.SyncByte"/> class.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="target">The target.</param>
+        </member>
+        <member name="M:zapnet.SyncByte.Read(Lidgren.Network.NetIncomingMessage,System.Boolean)">
+            <summary>
+            Read and process data from an incoming message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="changeSilently">Whether or not to avoid invoking change callbacks.</param>
+        </member>
+        <member name="M:zapnet.SyncByte.Write(Lidgren.Network.NetOutgoingMessage,System.Boolean)">
+            <summary>
+            Write data to an outgoing message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="dirtyOnly"></param>
+        </member>
+        <member name="T:zapnet.SyncBool">
+            <summary>
+            A boolean synchronized across the network.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncBool.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:zapnet.SyncBool"/> class.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncBool.#ctor(System.Boolean,zapnet.SyncTarget)">
+            <summary>
+            Initializes a new instance of the <see cref="T:zapnet.SyncBool"/> class.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="target">The target.</param>
+        </member>
+        <member name="M:zapnet.SyncBool.op_Implicit(zapnet.SyncBool)~System.Boolean">
+            <summary>
+            Performs an implicit conversion from <see cref="T:zapnet.SyncBool"/> to <see cref="T:System.Boolean"/>.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncBool.Read(Lidgren.Network.NetIncomingMessage,System.Boolean)">
+            <summary>
+            Read and process data from an incoming message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="changeSilently">Whether or not to avoid invoking change callbacks.</param>
+        </member>
+        <member name="M:zapnet.SyncBool.Write(Lidgren.Network.NetOutgoingMessage,System.Boolean)">
+            <summary>
+            Write data to an outgoing message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="dirtyOnly"></param>
+        </member>
+        <member name="T:zapnet.SyncDouble">
+            <summary>
+            A 64 bit floating point value synchronized across the network.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncDouble.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:zapnet.SyncDouble"/> class.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncDouble.#ctor(System.Double,zapnet.SyncTarget)">
+            <summary>
+            Initializes a new instance of the <see cref="T:zapnet.SyncDouble"/> class.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="target">The target.</param>
+        </member>
+        <member name="M:zapnet.SyncDouble.Read(Lidgren.Network.NetIncomingMessage,System.Boolean)">
+            <summary>
+            Read and process data from an incoming message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="changeSilently">Whether or not to avoid invoking change callbacks.</param>
+        </member>
+        <member name="M:zapnet.SyncDouble.Write(Lidgren.Network.NetOutgoingMessage,System.Boolean)">
+            <summary>
+            Write data to an outgoing message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="dirtyOnly"></param>
+        </member>
+        <member name="T:zapnet.SyncEntity`1">
+            <summary>
+            An entity synchronized across the network.
+            </summary>
+        </member>
+        <member name="F:zapnet.SyncEntity`1.PendingId">
+            <summary>
+            The pending identifier while waiting for the entity to be created.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncEntity`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:zapnet.SyncEntity`1"/> class.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncEntity`1.#ctor(`0,zapnet.SyncTarget)">
+            <summary>
+            Initializes a new instance of the <see cref="T:zapnet.SyncEntity`1"/> class.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="target">The target.</param>
+        </member>
+        <member name="M:zapnet.SyncEntity`1.op_Implicit(zapnet.SyncEntity{`0})~System.Boolean">
+            <summary>
+            Performs an implicit conversion from <see cref="T:zapnet.SyncEntity`1"/> to <see cref="T:System.Boolean"/>.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncEntity`1.Read(Lidgren.Network.NetIncomingMessage,System.Boolean)">
+            <summary>
+            Read and process data from an incoming message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="changeSilently">Whether or not to avoid invoking change callbacks.</param>
+        </member>
+        <member name="M:zapnet.SyncEntity`1.Write(Lidgren.Network.NetOutgoingMessage,System.Boolean)">
+            <summary>
+            Write data to an outgoing message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="dirtyOnly"></param>
+        </member>
+        <member name="T:zapnet.SyncFloat">
+            <summary>
+            A 32 bit floating point value synchronized across the network.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncFloat.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:zapnet.SyncFloat"/> class.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncFloat.#ctor(System.Single,zapnet.SyncTarget)">
+            <summary>
+            Initializes a new instance of the <see cref="T:zapnet.SyncFloat"/> class.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="target">The target.</param>
+        </member>
+        <member name="M:zapnet.SyncFloat.Read(Lidgren.Network.NetIncomingMessage,System.Boolean)">
+            <summary>
+            Read and process data from an incoming message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="changeSilently">Whether or not to avoid invoking change callbacks.</param>
+        </member>
+        <member name="M:zapnet.SyncFloat.Write(Lidgren.Network.NetOutgoingMessage,System.Boolean)">
+            <summary>
+            Write data to an outgoing message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="dirtyOnly"></param>
+        </member>
+        <member name="T:zapnet.SyncInt">
+            <summary>
+            A 32 bit signed integer synchronized across the network.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncInt.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:zapnet.SyncInt"/> class.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncInt.#ctor(System.Int32,zapnet.SyncTarget)">
+            <summary>
+            Initializes a new instance of the <see cref="T:zapnet.SyncInt"/> class.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="target">The target.</param>
+        </member>
+        <member name="M:zapnet.SyncInt.Read(Lidgren.Network.NetIncomingMessage,System.Boolean)">
+            <summary>
+            Read and process data from an incoming message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="changeSilently">Whether or not to avoid invoking change callbacks.</param>
+        </member>
+        <member name="M:zapnet.SyncInt.Write(Lidgren.Network.NetOutgoingMessage,System.Boolean)">
+            <summary>
+            Write data to an outgoing message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="dirtyOnly"></param>
+        </member>
+        <member name="T:zapnet.SyncPlayer">
+            <summary>
+            A player synchronized across the network.
+            </summary>
+        </member>
+        <member name="F:zapnet.SyncPlayer.PendingId">
+            <summary>
+            The pending identifier while waiting for the player to be added.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncPlayer.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:zapnet.SyncPlayer"/> class.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncPlayer.#ctor(zapnet.Player,zapnet.SyncTarget)">
+            <summary>
+            Initializes a new instance of the <see cref="T:zapnet.SyncPlayer"/> class.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="target">The target.</param>
+        </member>
+        <member name="M:zapnet.SyncPlayer.op_Implicit(zapnet.SyncPlayer)~System.Boolean">
+            <summary>
+            Performs an implicit conversion from <see cref="T:zapnet.SyncPlayer"/> to <see cref="T:System.Boolean"/>.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncPlayer.Read(Lidgren.Network.NetIncomingMessage,System.Boolean)">
+            <summary>
+            Read and process data from an incoming message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="changeSilently">Whether or not to avoid invoking change callbacks.</param>
+        </member>
+        <member name="M:zapnet.SyncPlayer.Write(Lidgren.Network.NetOutgoingMessage,System.Boolean)">
+            <summary>
+            Write data to an outgoing message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="dirtyOnly"></param>
+        </member>
+        <member name="T:zapnet.SyncString">
+            <summary>
+            A string synchronized across the network.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncString.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:zapnet.SyncString"/> class.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncString.#ctor(System.String,zapnet.SyncTarget)">
+            <summary>
+            Initializes a new instance of the <see cref="T:zapnet.SyncString"/> class.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="target">The target.</param>
+        </member>
+        <member name="M:zapnet.SyncString.op_Implicit(zapnet.SyncString)~System.Boolean">
+            <summary>
+            Performs an implicit conversion from <see cref="T:zapnet.SyncString"/> to <see cref="T:System.Boolean"/>.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncString.op_Inequality(zapnet.SyncString,System.String)">
+            <summary>
+            Implements the operator !=.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncString.op_Equality(zapnet.SyncString,System.String)">
+            <summary>
+            Implements the operator ==.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncString.Read(Lidgren.Network.NetIncomingMessage,System.Boolean)">
+            <summary>
+            Read and process data from an incoming message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="changeSilently">Whether or not to avoid invoking change callbacks.</param>
+        </member>
+        <member name="M:zapnet.SyncString.Write(Lidgren.Network.NetOutgoingMessage,System.Boolean)">
+            <summary>
+            Write data to an outgoing message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="dirtyOnly"></param>
+        </member>
+        <member name="T:zapnet.SyncTarget">
+            <summary>
+            Represents which kind of player a variable should be synchronized with.
+            </summary>
+        </member>
+        <member name="F:zapnet.SyncTarget.All">
+            <summary>
+            Synchronize with all connected players.
+            </summary>
+        </member>
+        <member name="F:zapnet.SyncTarget.Controller">
+            <summary>
+            Synchronize with only the controller of this entity.
+            </summary>
+        </member>
+        <member name="T:zapnet.SyncULong">
+            <summary>
+            A 64 bit unsigned integer synchronized across the network.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncULong.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:zapnet.SyncULong"/> class.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncULong.#ctor(System.UInt64,zapnet.SyncTarget)">
+            <summary>
+            Initializes a new instance of the <see cref="T:zapnet.SyncULong"/> class.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="target">The target.</param>
+        </member>
+        <member name="M:zapnet.SyncULong.Read(Lidgren.Network.NetIncomingMessage,System.Boolean)">
+            <summary>
+            Read and process data from an incoming message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="changeSilently">Whether or not to avoid invoking change callbacks.</param>
+        </member>
+        <member name="M:zapnet.SyncULong.Write(Lidgren.Network.NetOutgoingMessage,System.Boolean)">
+            <summary>
+            Write data to an outgoing message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="dirtyOnly"></param>
+        </member>
+        <member name="T:zapnet.ISyncVar">
+            <summary>
+            An interface that all synchronzied variables must implement.
+            </summary>
+        </member>
+        <member name="P:zapnet.ISyncVar.Target">
+            <summary>
+            Which kind of player the variable will be synchronized with.
+            </summary>
+        </member>
+        <member name="P:zapnet.ISyncVar.IsDirty">
+            <summary>
+            Whether or not the synchronized variable is dirty.
+            </summary>
+        </member>
+        <member name="P:zapnet.ISyncVar.IsPaused">
+            <summary>
+            Whether or not synchronization updates for this variable are paused.
+            </summary>
+        </member>
+        <member name="P:zapnet.ISyncVar.Metadata">
+            <summary>
+            Get any metadata attached to this synchronized variable.
+            </summary>
+        </member>
+        <member name="M:zapnet.ISyncVar.Read(Lidgren.Network.NetIncomingMessage,System.Boolean)">
+            <summary>
+            Read and process data from an incoming message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="changeSilently">Whether or not to avoid invoking change callbacks.</param>
+        </member>
+        <member name="M:zapnet.ISyncVar.Write(Lidgren.Network.NetOutgoingMessage,System.Boolean)">
+            <summary>
+            Write data to an outgoing message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="dirtyOnly"></param>
+        </member>
+        <member name="M:zapnet.ISyncVar.ClearMetadata">
+            <summary>
+            Clear any metadata attached to this synchronized variable.
+            </summary>
+        </member>
+        <member name="M:zapnet.ISyncVar.ReadMetadata">
+            <summary>
+            Read the metadata buffer from the start.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.ISyncVar.SetDirtyHandler(System.Action{zapnet.ISyncVar})">
+            <summary>
+            Sets a callback to be invoked when the synchronized variable becomes dirty.
+            </summary>
+            <param name="callback">The callback.</param>
+        </member>
+        <member name="T:zapnet.SyncVar`1">
+            <summary>
+            Represents a synchronized variable with the provided underlying type.
+            </summary>
+            <typeparam name="T">The underlying type of the value.</typeparam>
+        </member>
+        <member name="E:zapnet.SyncVar`1.onValueChanged">
+            <summary>
+            Invoked when the value has changed.
+            </summary>
+        </member>
+        <member name="P:zapnet.SyncVar`1.LastValue">
+            <summary>
+            Get the last value this synchronized variable held.
+            </summary>
+        </member>
+        <member name="P:zapnet.SyncVar`1.Value">
+            <summary>
+            Get the current value held by this synchronized variable.
+            </summary>
+        </member>
+        <member name="P:zapnet.SyncVar`1.Target">
+            <summary>
+            Which kind of player the variable will be synchronized with.
+            </summary>
+        </member>
+        <member name="P:zapnet.SyncVar`1.IsDirty">
+            <summary>
+            Whether or not the synchronized variable is dirty.
+            </summary>
+        </member>
+        <member name="P:zapnet.SyncVar`1.IsPaused">
+            <summary>
+            Whether or not synchronization for this variable is paused.
+            </summary>
+        </member>
+        <member name="P:zapnet.SyncVar`1.Metadata">
+            <summary>
+            Get any metadata attached to this synchronized variable.
+            </summary>
+        </member>
+        <member name="P:zapnet.SyncVar`1.HasMetdata">
+            <summary>
+            Whether or not the synchronized variable has any metadata attached.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncVar`1.#ctor(`0,zapnet.SyncTarget)">
+            <summary>
+            Initializes a new instance of the <see cref="T:zapnet.SyncVar`1"/> class.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="target">The target.</param>
+        </member>
+        <member name="M:zapnet.SyncVar`1.SetDirtyHandler(System.Action{zapnet.ISyncVar})">
+            <summary>
+            Sets a callback to be invoked when the synchronized variable becomes dirty.
+            </summary>
+            <param name="callback">The callback.</param>
+        </member>
+        <member name="M:zapnet.SyncVar`1.Pause">
+            <summary>
+            Pause synchronization updates for this variable.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncVar`1.Resume">
+            <summary>
+            Resume synchronization updates for this variable.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncVar`1.ClearMetadata">
+            <summary>
+            Clear any metadata attached to this synchronized variable.
+            </summary>
+        </member>
+        <member name="M:zapnet.SyncVar`1.ReadMetadata">
+            <summary>
+            Read the metadata buffer from the start.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.SyncVar`1.SetValue(`0,System.Boolean)">
+            <summary>
+            Set the value of this synchronized variable.
+            </summary>
+            <param name="value"></param>
+            <param name="changeSilently">Whether or not to avoid invoking change callbacks.</param>
+        </member>
+        <member name="M:zapnet.SyncVar`1.Read(Lidgren.Network.NetIncomingMessage,System.Boolean)">
+            <summary>
+            Read and process data from an incoming message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="changeSilently">Whether or not to avoid invoking change callbacks.</param>
+        </member>
+        <member name="M:zapnet.SyncVar`1.Write(Lidgren.Network.NetOutgoingMessage,System.Boolean)">
+            <summary>
+            Write data to an outgoing message.
+            </summary>
+            <param name="buffer"></param>
+            <param name="dirtyOnly"></param>
+        </member>
+        <member name="M:zapnet.SyncVar`1.ToString">
+            <summary>
+            Converts to string.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /> that represents this instance.
+            </returns>
+        </member>
+        <member name="T:zapnet.Player">
+            <summary>
+            An object representing a single player connection.
+            </summary>
+        </member>
+        <member name="P:zapnet.Player.ScopeEntities">
+            <summary>
+            [Server] A hashed set of entities scoped by this player. These are all of the entities
+            that the player can see.
+            </summary>
+        </member>
+        <member name="P:zapnet.Player.LoginCredentials">
+            <summary>
+            [Server] Get the login credentials network packet that the player provided when they
+            initially connected.
+            </summary>
+        </member>
+        <member name="P:zapnet.Player.Controllables">
+            <summary>
+            [Shared] A hashed set of entities controlled by this player.
+            </summary>
+        </member>
+        <member name="P:zapnet.Player.Connection">
+            <summary>
+            [Server] Get the underlying NetConnection from Lidgren. This will be null if the server
+            is also the client.
+            </summary>
+        </member>
+        <member name="P:zapnet.Player.PreventEntitySpawning">
+            <summary>
+            [Server] Whether or not the spawning of entities should be prevented for this player.
+            </summary>
+        </member>
+        <member name="P:zapnet.Player.HasInitialData">
+            <summary>
+            [Server] Whether or not the player has received their initial data.
+            </summary>
+        </member>
+        <member name="P:zapnet.Player.PlayerId">
+            <summary>
+            [Shared] Get the unique identifier representing this player.
+            </summary>
+        </member>
+        <member name="P:zapnet.Player.Entity">
+            <summary>
+            [Shared] Get the network entity that belongs to this player.
+            </summary>
+        </member>
+        <member name="M:zapnet.Player.SetEntity(zapnet.BaseEntity)">
+            <summary>
+            [Shared] Set the network entity that belongs to this player.
+            </summary>
+            <param name="entity"></param>
+        </member>
+        <member name="P:zapnet.Player.IsLocalPlayer">
+            <summary>
+            [Shared] Whether or not this player is the local player.
+            </summary>
+        </member>
+        <member name="P:zapnet.Player.IsConnected">
+            <summary>
+            [Server] Whether or not this player is currently connected.
+            </summary>
+        </member>
+        <member name="T:zapnet.BufferTransform">
+            <summary>
+            Data representing buffered interpolation data for entities.
+            </summary>
+        </member>
+        <member name="F:zapnet.BufferTransform.timestamp">
+            <summary>
+            The universal timestamp when this data was received from the server.
+            </summary>
+        </member>
+        <member name="F:zapnet.BufferTransform.position">
+            <summary>
+            The position data received from the server at this time.
+            </summary>
+        </member>
+        <member name="F:zapnet.BufferTransform.rotation">
+            <summary>
+            The rotation data received from the server at this time.
+            </summary>
+        </member>
+        <member name="T:zapnet.TwoWayDictionary`2">
+            <summary>
+            Similar to the standard C# Dictionary class except you can easily get a key from a value
+            with zero allocations.
+            </summary>
+            <typeparam name="TKey"></typeparam>
+            <typeparam name="TValue"></typeparam>
+        </member>
+        <member name="M:zapnet.TwoWayDictionary`2.TryGetKey(`1,`0@)">
+            <summary>
+            Try and get a key by value and pass out the key if it was found.
+            </summary>
+            <param name="value"></param>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.TwoWayDictionary`2.ContainsValue(`1)">
+            <summary>
+            Get whether or not the dictionary contains a value.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.TwoWayDictionary`2.GetByValue(`1)">
+            <summary>
+            Get a key by value. Unlike TryGetKey this method will fail if the value
+            does not exist in the dictionary.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:zapnet.LimitedDictionary`2">
+            <summary>
+            Similar to a regular C# Dictionary except it will only hold a limited amount
+            of items before it pops one off the head.
+            </summary>
+            <typeparam name="TKey"></typeparam>
+            <typeparam name="TValue"></typeparam>
+        </member>
+        <member name="P:zapnet.LimitedDictionary`2.MaxItems">
+            <summary>
+            The maximum amount of items this dictionary can hold.
+            </summary>
+        </member>
+        <member name="T:zapnet.NetworkRaycastHit">
+            <summary>
+            Data representing a network raycast hit.
+            </summary>
+        </member>
+        <member name="F:zapnet.NetworkRaycastHit.hitbox">
+            <summary>
+            The network hitbox object that was hit.
+            </summary>
+        </member>
+        <member name="F:zapnet.NetworkRaycastHit.gameObject">
+            <summary>
+            The game object that was hit.
+            </summary>
+        </member>
+        <member name="F:zapnet.NetworkRaycastHit.data">
+            <summary>
+            The underlying Unity RaycastHit data.
+            </summary>
+        </member>
+        <member name="T:zapnet.NetworkUtil">
+            <summary>
+            A static class of utilities relating to networking.
+            </summary>
+        </member>
+        <member name="M:zapnet.NetworkUtil.Serialize(System.Object)">
+            <summary>
+            Serialize the provided input object into a byte array.
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.NetworkUtil.Deserialize``1(System.Byte[])">
+            <summary>
+            Deserialize the provided byte array into a type.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:zapnet.HitInfoOBB">
+            <summary>
+            Data representing an oriented bounding box hit.
+            </summary>
+        </member>
+        <member name="F:zapnet.HitInfoOBB.distance">
+            <summary>
+            The distance between where the ray began and the hit position.
+            </summary>
+        </member>
+        <member name="F:zapnet.HitInfoOBB.position">
+            <summary>
+            The position that the ray intersects the OBB.
+            </summary>
+        </member>
+        <member name="F:zapnet.HitInfoOBB.normal">
+            <summary>
+             The normal vector of the hit intersection.
+            </summary>
+        </member>
+        <member name="F:zapnet.HitInfoOBB.didHit">
+            <summary>
+            Whether or not the ray did hit any OBB.
+            </summary>
+        </member>
+        <member name="T:zapnet.OBB">
+            <summary>
+            A class representing an oriented bounding box.
+            </summary>
+        </member>
+        <member name="T:zapnet.RaycastUtil">
+            <summary>
+            A static class of utilities relating to raycasts.
+            </summary>
+        </member>
+        <member name="M:zapnet.RaycastUtil.OBB(UnityEngine.Ray,zapnet.OBB,zapnet.HitInfoOBB@)">
+            <summary>
+            Get whether a Ray intersects an OBB and pass out any hit data.
+            </summary>
+            <param name="ray"></param>
+            <param name="obb"></param>
+            <param name="hitInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="T:zapnet.TableList`1">
+            <summary>
+            Contains functionality from both a C# List and a C# Dictionary allowing fast enumeration
+            of contained values.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:zapnet.TableList`1.List">
+            <summary>
+            Get the underlying C# List.
+            </summary>
+        </member>
+        <member name="P:zapnet.TableList`1.Table">
+            <summary>
+            Get the underlying C# Dictionary.
+            </summary>
+        </member>
+        <member name="P:zapnet.TableList`1.Count">
+            <summary>
+            Get the total number of items in the list.
+            </summary>
+        </member>
+        <member name="M:zapnet.TableList`1.Add(System.UInt32,`0)">
+            <summary>
+            Add a value to the table with the provided index.
+            </summary>
+            <param name="index"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:zapnet.TableList`1.Clear">
+            <summary>
+            Clear the list and dictionary entirely.
+            </summary>
+        </member>
+        <member name="M:zapnet.TableList`1.Find(System.UInt32)">
+            <summary>
+            Find a value with the provided index.
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.TableList`1.Exists(System.UInt32)">
+            <summary>
+            Whether or not a value with the provided index exists.
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.TableList`1.Exists(`0)">
+            <summary>
+            Whether or not the provided value exists.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.TableList`1.Remove(System.UInt32)">
+            <summary>
+            Remove an item from the list by index.
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="T:zapnet.UniversalTime">
+            <summary>
+            A static class providing access to a synchronized timestamp.
+            </summary>
+        </member>
+        <member name="P:zapnet.UniversalTime.Milliseconds">
+            <summary>
+            Get the current milliseconds elapsed since 1970 based on the UTC timezone. This is useful
+            for timestamps that need to be the same on both the client and the server.
+            </summary>
+        </member>
+        <member name="T:zapnet.VectorAxes">
+            <summary>
+            For use in a bit field representing a selection of axes.
+            </summary>
+        </member>
+        <member name="F:zapnet.VectorAxes.None">
+            <summary>
+            No axes are included in the set.
+            </summary>
+        </member>
+        <member name="F:zapnet.VectorAxes.X">
+            <summary>
+            Whether the x axis is included in the set.
+            </summary>
+        </member>
+        <member name="F:zapnet.VectorAxes.Y">
+            <summary>
+            Whether the y axis is included in the set.
+            </summary>
+        </member>
+        <member name="F:zapnet.VectorAxes.Z">
+            <summary>
+            Whether the z axis is included in the set.
+            </summary>
+        </member>
+        <member name="T:zapnet.SyncTransformConfig">
+            <summary>
+            Contains configuration for the synchronization of an entity's transform.
+            </summary>
+        </member>
+        <member name="F:zapnet.SyncTransformConfig.positionAxes">
+            <summary>
+            The position axes to be synchronized across the network.
+            </summary>
+        </member>
+        <member name="F:zapnet.SyncTransformConfig.positionCompression">
+            <summary>
+            Contains configuration to change the behavior of compression on the position value.
+            </summary>
+        </member>
+        <member name="F:zapnet.SyncTransformConfig.rotationAxes">
+            <summary>
+            The rotation axes to be synchronized across the network.
+            </summary>
+        </member>
+        <member name="F:zapnet.SyncTransformConfig.rotationCompression">
+            <summary>
+            Whether or not rotation is compressed when sending across the network.
+            </summary>
+        </member>
+        <member name="T:zapnet.VectorCompressionConfig">
+            <summary>
+            Contains configuration for compressing a vector.
+            </summary>
+        </member>
+        <member name="F:zapnet.VectorCompressionConfig.enabled">
+            <summary>
+            Wether or not compression is enabled.
+            </summary>
+        </member>
+        <member name="F:zapnet.VectorCompressionConfig.minimum">
+            <summary>
+            The minimum value of one value of the vector.
+            </summary>
+        </member>
+        <member name="F:zapnet.VectorCompressionConfig.maximum">
+            <summary>
+            The maximum value of one value of the vector.
+            </summary>
+        </member>
+        <member name="F:zapnet.VectorCompressionConfig.numberOfBits">
+            <summary>
+            The number of bits to compress with.
+            </summary>
+        </member>
+        <member name="T:zapnet.Zapnet">
+            <summary>
+            The global Zapnet behaviour that provides access to all Zapnet managers.
+            </summary>
+        </member>
+        <member name="E:zapnet.Zapnet.onClientStarted">
+            <summary>
+            Invoked when the network client has started.
+            </summary>
+        </member>
+        <member name="E:zapnet.Zapnet.onServerStarted">
+            <summary>
+            Invoked when the network server has started.
+            </summary>
+        </member>
+        <member name="P:zapnet.Zapnet.Network">
+            <summary>
+            Provides global access to the Zapnet network manager.
+            </summary>
+        </member>
+        <member name="P:zapnet.Zapnet.Prefab">
+            <summary>
+            Provides global access to the Zapnet prefab manager.
+            </summary>
+        </member>
+        <member name="P:zapnet.Zapnet.Player">
+            <summary>
+            Provides global access to the Zapnet player manager.
+            </summary>
+        </member>
+        <member name="P:zapnet.Zapnet.Entity">
+            <summary>
+            Provides global access to the Zapnet entity manager.
+            </summary>
+        </member>
+        <member name="M:zapnet.Zapnet.Initialize">
+            <summary>
+            Initialize Zapnet and the network manager.
+            </summary>
+        </member>
+        <member name="M:zapnet.Zapnet.Shutdown">
+            <summary>
+            Shuts down Zapnet and cleans up its managers.
+            </summary>
+        </member>
+        <member name="T:zapnet.IControllable">
+            <summary>
+            The interface that all controllable entities must implement.
+            </summary>
+        </member>
+        <member name="P:zapnet.IControllable.Controller">
+            <summary>
+            The player currently controlling this entity.
+            </summary>
+        </member>
+        <member name="M:zapnet.IControllable.AssignControl(zapnet.Player)">
+            <summary>
+            Assign control of this entity to the provided player.
+            </summary>
+            <param name="player"></param>
+        </member>
+        <member name="M:zapnet.IControllable.HasController">
+            <summary>
+            Get whether this entity has a controller.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.IControllable.HasControl(zapnet.Player)">
+            <summary>
+            Get whether the provided player has control of this entity.
+            </summary>
+            <param name="player"></param>
+            <returns></returns>
+        </member>
+        <member name="M:zapnet.IControllable.HasControl">
+            <summary>
+            Get whether any player has control of this entity.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:NetworkPrefab">
+            <summary>
+            A behaviour to indicate this prefab can be instantiated across the network.
+            </summary>
+        </member>
+        <member name="M:NetworkPrefab.GenerateIdentifier">
+            <summary>
+            Generate a new unique identifier for this prefab.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:NetworkPrefab.uniqueName">
+            <summary>
+            The unique name attributed to this network prefab.
+            </summary>
+        </member>
+        <member name="F:NetworkPrefab.regenerate">
+            <summary>
+            Used in the Unity Inspector to regenerate the unique identifier.
+            </summary>
+        </member>
+        <member name="T:BitFlags">
+            <summary>
+            Represents bit flags and provides convenient methods for manipulating and querying them.
+            </summary>
+        </member>
+        <member name="P:BitFlags.Value">
+            <summary>
+            Get the integer value representation of the combined flags.
+            </summary>
+        </member>
+        <member name="M:BitFlags.Has``1(``0)">
+            <summary>
+            Whether or not the combined flags contains the provided flag.
+            </summary>
+            <typeparam name="E"></typeparam>
+            <param name="flag"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BitFlags.Add``1(``0)">
+            <summary>
+            Add the provided flag to the combined flags.
+            </summary>
+            <typeparam name="E"></typeparam>
+            <param name="flag"></param>
+        </member>
+        <member name="M:BitFlags.Take``1(``0)">
+            <summary>
+            Take the provided flag from the combined flags.
+            </summary>
+            <typeparam name="E"></typeparam>
+            <param name="flag"></param>
+        </member>
+        <member name="M:BitFlags.Set(System.Int32)">
+            <summary>
+            Set the integer value of the combined flags.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:BitFlags.Clear">
+            <summary>
+            Clear the combined flags and reset the integer value to zero.
+            </summary>
+        </member>
+    </members>
+</doc>

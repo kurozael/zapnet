@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9A28D17D-C894-471B-9595-571CE6C1C29A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>zapnet</RootNamespace>
+    <AssemblyName>zapnet</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Build\Zapnet\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
+    <DocumentationFile>..\..\Build\Zapnet\zapnet.xml</DocumentationFile>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Lidgren.Network">
+      <HintPath>Lidgren\Lidgren.Network.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\..\..\..\Program Files\Unity\Hub\Editor\2020.2.0b2\Editor\Data\Managed\UnityEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Source\Entities\Attributes\RemoteCallAttribute.cs" />
+    <Compile Include="Source\Entities\BaseControllable.cs" />
+    <Compile Include="Source\Entities\BaseEntity.cs" />
+    <Compile Include="Source\Entities\EntitySubsystem.cs" />
+    <Compile Include="Source\Entities\Events\BaseInputEvent.cs" />
+    <Compile Include="Source\Entities\Events\ControlGainedEvent.cs" />
+    <Compile Include="Source\Entities\Events\ControlLostEvent.cs" />
+    <Compile Include="Source\Entities\Events\RemoteCallEvent.cs" />
+    <Compile Include="Source\Entities\Events\SynchronizeEvent.cs" />
+    <Compile Include="Source\Entities\NetworkHitbox.cs" />
+    <Compile Include="Source\Entities\States\SubsystemState.cs" />
+    <Compile Include="Source\Entities\States\ControllableState.cs" />
+    <Compile Include="Source\Entities\States\EntityState.cs" />
+    <Compile Include="Source\Extensions\LidgrenExtensions.cs" />
+    <Compile Include="Source\Managers\EntityManager.cs" />
+    <Compile Include="Source\Managers\NetworkManager.cs" />
+    <Compile Include="Source\Managers\PlayerManager.cs" />
+    <Compile Include="Source\Managers\PrefabManager.cs" />
+    <Compile Include="Source\Networking\EventListener.cs" />
+    <Compile Include="Source\Networking\Events\EarlyEventBuffer.cs" />
+    <Compile Include="Source\Networking\Events\BaseEventData.cs" />
+    <Compile Include="Source\Networking\Events\EarlyEventSettings.cs" />
+    <Compile Include="Source\Networking\Events\NetworkEvent.cs" />
+    <Compile Include="Source\Networking\Events\NetworkEventType.cs" />
+    <Compile Include="Source\Networking\GameClient.cs" />
+    <Compile Include="Source\Networking\GameServer.cs" />
+    <Compile Include="Source\Networking\IClientHandler.cs" />
+    <Compile Include="Source\Networking\INetworkPoolable.cs" />
+    <Compile Include="Source\Networking\IServerHandler.cs" />
+    <Compile Include="Source\Networking\MessageType.cs" />
+    <Compile Include="Source\Networking\NetChannel.cs" />
+    <Compile Include="Source\Networking\NetSettings.cs" />
+    <Compile Include="Source\Networking\NetSimulation.cs" />
+    <Compile Include="Source\Networking\NetworkPrefab.cs" />
+    <Compile Include="Source\Networking\Packets\INetworkPacket.cs" />
+    <Compile Include="Source\Networking\Packets\PlayerListPacket.cs" />
+    <Compile Include="Source\Networking\Packets\PrefabListPacket.cs" />
+    <Compile Include="Source\Networking\RemoteCall.cs" />
+    <Compile Include="Source\Networking\SyncVars\SyncColor.cs" />
+    <Compile Include="Source\Networking\SyncVars\SyncList.cs" />
+    <Compile Include="Source\Networking\SyncVars\SyncQuaternion.cs" />
+    <Compile Include="Source\Networking\SyncVars\SyncShort.cs" />
+    <Compile Include="Source\Networking\SyncVars\SyncLong.cs" />
+    <Compile Include="Source\Networking\SyncVars\SyncUShort.cs" />
+    <Compile Include="Source\Networking\SyncVars\SyncVector3.cs" />
+    <Compile Include="Source\Networking\SyncVars\SyncByte.cs" />
+    <Compile Include="Source\Networking\SyncVars\SyncBool.cs" />
+    <Compile Include="Source\Networking\SyncVars\SyncDouble.cs" />
+    <Compile Include="Source\Networking\SyncVars\SyncEntity.cs" />
+    <Compile Include="Source\Networking\SyncVars\SyncFloat.cs" />
+    <Compile Include="Source\Networking\SyncVars\SyncInt.cs" />
+    <Compile Include="Source\Networking\SyncVars\SyncPlayer.cs" />
+    <Compile Include="Source\Networking\SyncVars\SyncString.cs" />
+    <Compile Include="Source\Networking\SyncVars\SyncTarget.cs" />
+    <Compile Include="Source\Networking\SyncVars\SyncULong.cs" />
+    <Compile Include="Source\Networking\SyncVars\SyncVar.cs" />
+    <Compile Include="Source\Player.cs" />
+    <Compile Include="Source\Utility\BitFlags.cs" />
+    <Compile Include="Source\Utility\BufferTransform.cs" />
+    <Compile Include="Source\Utility\TwoWayDictionary.cs" />
+    <Compile Include="Source\Utility\LimitedDictionary.cs" />
+    <Compile Include="Source\Utility\NetworkRaycastHit.cs" />
+    <Compile Include="Source\Utility\NetworkUtil.cs" />
+    <Compile Include="Source\Utility\RaycastUtil.cs" />
+    <Compile Include="Source\Utility\TableList.cs" />
+    <Compile Include="Source\Utility\UniversalTime.cs" />
+    <Compile Include="Source\Utility\VectorAxes.cs" />
+    <Compile Include="Source\Utility\SyncTransformConfig.cs" />
+    <Compile Include="Source\Utility\VectorCompressionConfig.cs" />
+    <Compile Include="Source\Zapnet.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Source\Entities\IControllable.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

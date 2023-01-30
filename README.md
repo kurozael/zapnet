@@ -24,7 +24,6 @@ We offer source code access on request via Gitlab, just message us on Discord af
 Join us on Discord to join our active community and get support from us whenever you need it! Please PM us on Discord when you purchase with your invoice number, so we can give you access to exclusive customer channels.
 
 * Discord: https://discord.gg/3ZvZ6PmB
-* Documentation: https://zapnet.kurozael.com
 * Source Code: https://github.com/kurozael/zapnet
 
 ## ⚡ documentation
